@@ -1,4 +1,4 @@
-#include "../zh/zbicgstab.h"
+#include "../include/zbicgstab.h"
 #include <mpi.h>
 #include <iostream>
 #include <ctime>
