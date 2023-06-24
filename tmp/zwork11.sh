@@ -1,3 +1,3 @@
 pushd /home/zhangxin/content/test
-mpic++ zwork.cc -o zwork11 && mpirun -np 11 zwork11
+mpic++.openmpi zwork.cc -o zwork11 && mpirun.openmpi -np 11 zwork11
 popd

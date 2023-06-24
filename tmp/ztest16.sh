@@ -1,3 +1,3 @@
 pushd /home/zhangxin/content/test
-mpic++ ztest.cc -o ztest16 && mpirun -np 16 ztest16
+mpic++.openmpi ztest.cc -o ztest16 && mpirun.openmpi -np 16 ztest16
 popd

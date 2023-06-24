@@ -1,3 +1,3 @@
 pushd /home/zhangxin/content/test
-mpic++ zexample.cc -o zexample12 && mpirun -np 12 zexample12
+mpic++.openmpi zexample.cc -o zexample12 && mpirun.openmpi -np 12 zexample12
 popd
