@@ -27,30 +27,86 @@ done
 echo "###${_NAME} is done......:$(date "+%Y-%m-%d-%H-%M-%S")###"
 popd
 
+
+# init
+_NAME=$(basename "$0")
+name='zwork'
+work_name="bin"
+tmp_name="tmp"
+work_path=${_HOME}/${work_name}
+tmp_path=${_HOME}/${tmp_name}
+
+# do
 pushd ${tmp_path}
 echo "###${_NAME} is running...:$(date "+%Y-%m-%d-%H-%M-%S")###"
-name="zwork"
 for i in $(seq 16); do
        echo "making ${name}${i}.sh in ${tmp_path}"
-       echo "pushd ${work_path}" >${name}${i}.sh
-       echo "mpic++.openmpi ${name}.cc -o ${name}${i} && mpirun.openmpi -np ${i} ${name}${i}" >>${name}${i}.sh
-       echo "popd" >>${name}${i}.sh
-done
-name="zexample"
-for i in $(seq 16); do
-       echo "making ${name}${i}.sh in ${tmp_path}"
-       echo "pushd ${work_path}" >${name}${i}.sh
-       echo "mpic++.openmpi ${name}.cc -o ${name}${i} && mpirun.openmpi -np ${i} ${name}${i}" >>${name}${i}.sh
-       echo "popd" >>${name}${i}.sh
-done
-name="ztest"
-for i in $(seq 16); do
-       echo "making ${name}${i}.sh in ${tmp_path}"
-       echo "pushd ${work_path}" >${name}${i}.sh
-       echo "mpic++.openmpi ${name}.cc -o ${name}${i} && mpirun.openmpi -np ${i} ${name}${i}" >>${name}${i}.sh
+       echo "pushd ${tmp_path}" >${name}${i}.sh
+       echo "mpic++.openmpi ${work_path}/${name}.cc -o ${name}${i} && mpirun.openmpi -np ${i} ${name}${i}" >>${name}${i}.sh
        echo "popd" >>${name}${i}.sh
 done
 echo "###${_NAME} is done......:$(date "+%Y-%m-%d-%H-%M-%S")###"
 popd
 
-# done
+
+# init
+_NAME=$(basename "$0")
+name='zexample'
+work_name="bin"
+tmp_name="tmp"
+work_path=${_HOME}/${work_name}
+tmp_path=${_HOME}/${tmp_name}
+
+# do
+pushd ${tmp_path}
+echo "###${_NAME} is running...:$(date "+%Y-%m-%d-%H-%M-%S")###"
+for i in $(seq 16); do
+       echo "making ${name}${i}.sh in ${tmp_path}"
+       echo "pushd ${tmp_path}" >${name}${i}.sh
+       echo "mpic++.openmpi ${work_path}/${name}.cc -o ${name}${i} && mpirun.openmpi -np ${i} ${name}${i}" >>${name}${i}.sh
+       echo "popd" >>${name}${i}.sh
+done
+echo "###${_NAME} is done......:$(date "+%Y-%m-%d-%H-%M-%S")###"
+popd
+
+
+# init
+_NAME=$(basename "$0")
+name='ztest'
+work_name="bin"
+tmp_name="tmp"
+work_path=${_HOME}/${work_name}
+tmp_path=${_HOME}/${tmp_name}
+
+# do
+pushd ${tmp_path}
+echo "###${_NAME} is running...:$(date "+%Y-%m-%d-%H-%M-%S")###"
+for i in $(seq 16); do
+       echo "making ${name}${i}.sh in ${tmp_path}"
+       echo "pushd ${tmp_path}" >${name}${i}.sh
+       echo "mpic++.openmpi ${work_path}/${name}.cc -o ${name}${i} && mpirun.openmpi -np ${i} ${name}${i}" >>${name}${i}.sh
+       echo "popd" >>${name}${i}.sh
+done
+echo "###${_NAME} is done......:$(date "+%Y-%m-%d-%H-%M-%S")###"
+popd
+
+
+# init
+_NAME=$(basename "$0")
+name='zrun'
+work_name="bin"
+tmp_name="tmp"
+work_path=${_HOME}/${work_name}
+tmp_path=${_HOME}/${tmp_name}
+
+# do
+pushd ${tmp_path}
+echo "###${_NAME} is running...:$(date "+%Y-%m-%d-%H-%M-%S")###"
+for i in $(seq 16); do
+       echo "making ${name}${i}.sh in ${tmp_path}"
+       echo "pushd ${tmp_path}" >${name}${i}.sh
+       echo "mpic++.openmpi ${work_path}/${name}.cc -o ${name}${i} && mpirun.openmpi -np ${i} ${name}${i}" >>${name}${i}.sh
+       echo "popd" >>${name}${i}.sh
+done
+echo "###${_NAME} is done......:$(date "+%Y-%m-%d-%H-%M-%S")###"
+popd
