@@ -788,10 +788,9 @@ public:
         return result;
     }
 };
-void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &num_x, const int &num_y, const int &num_z, const int &num_t, const double mass = 1.0, const bool dag = false)
+void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &num_x, const int &num_y, const int &num_z, const int &num_t)
 {
     dest.assign_zero();
-    const double a = 2.0;
     const Complex i(0.0, 1.0);
     Complex tmp0[3];
     Complex tmp1[3];
@@ -800,8 +799,11 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
     int s0[2];
     int s1[2];
     int d;
-    const double Half = 0.5;
-    double flag = (dag == true) ? -1 : 1;
+    const double a = 2.0;
+    const double kappa = 1.0;
+    double coef[2];
+    coef[0] = 1 / a;
+    coef[1] = -kappa / a;
     Complex flag0;
     Complex flag1;
     for (int x = 0; x < U.lat_x; x++)
@@ -812,12 +814,14 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
             {
                 for (int t = 0; t < U.lat_t; t++)
                 {
-                    // // mass term and others
-                    // for (int s = 0; s < U.lat_s; s++)
-                    // {
-                    //     dest(x, y, z, t, s, c) += -src(x, y, z, t, s, c) * (a + mass);
-                    // }
-
+                    // mass term and others
+                    for (int s = 0; s < U.lat_s; s++)
+                    {
+                        for (int c = 0; c < U.lat_c0; c++)
+                        {
+                            dest(x, y, z, t, s, c) += src(x, y, z, t, s, c) * coef[0];
+                        }
+                    }
                     // backward x
                     int b_x = (x + U.lat_x - 1) % U.lat_x;
                     d = 0;
@@ -841,8 +845,8 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
                     {
                         for (int c1 = 0; c1 < U.lat_c1; c1++)
                         {
-                            tmp0[c0] += (src(b_x, y, z, t, s0[0], c1) * g0[0] + src(b_x, y, z, t, s0[1], c1) * g0[1]) * U(b_x, y, z, t, d, c0, c1).conj();
-                            tmp1[c0] += (src(b_x, y, z, t, s1[0], c1) * g1[0] + src(b_x, y, z, t, s1[1], c1) * g1[1]) * U(b_x, y, z, t, d, c0, c1).conj();
+                            tmp0[c0] += (src(b_x, y, z, t, s0[0], c1) * g0[0] + src(b_x, y, z, t, s0[1], c1) * g0[1]) * U(b_x, y, z, t, d, c0, c1).conj() * coef[1];
+                            tmp1[c0] += (src(b_x, y, z, t, s1[0], c1) * g1[0] + src(b_x, y, z, t, s1[1], c1) * g1[1]) * U(b_x, y, z, t, d, c0, c1).conj() * coef[1];
                         }
                         dest(x, y, z, t, 0, c0) += tmp0[c0];
                         dest(x, y, z, t, 1, c0) += tmp1[c0];
@@ -872,8 +876,8 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
                     {
                         for (int c1 = 0; c1 < U.lat_c1; c1++)
                         {
-                            tmp0[c0] += (src(f_x, y, z, t, s0[0], c1) * g0[0] + src(f_x, y, z, t, s0[1], c1) * g0[1]) * U(x, y, z, t, d, c0, c1);
-                            tmp1[c0] += (src(f_x, y, z, t, s1[0], c1) * g1[0] + src(f_x, y, z, t, s1[1], c1) * g1[1]) * U(x, y, z, t, d, c0, c1);
+                            tmp0[c0] += (src(f_x, y, z, t, s0[0], c1) * g0[0] + src(f_x, y, z, t, s0[1], c1) * g0[1]) * U(x, y, z, t, d, c0, c1) * coef[1];
+                            tmp1[c0] += (src(f_x, y, z, t, s1[0], c1) * g1[0] + src(f_x, y, z, t, s1[1], c1) * g1[1]) * U(x, y, z, t, d, c0, c1) * coef[1];
                         }
                         dest(x, y, z, t, 0, c0) += tmp0[c0];
                         dest(x, y, z, t, 1, c0) += tmp1[c0];
@@ -903,8 +907,8 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
                     {
                         for (int c1 = 0; c1 < U.lat_c1; c1++)
                         {
-                            tmp0[c0] += (src(x, b_y, z, t, s0[0], c1) * g0[0] + src(x, b_y, z, t, s0[1], c1) * g0[1]) * U(x, b_y, z, t, d, c0, c1).conj();
-                            tmp1[c0] += (src(x, b_y, z, t, s1[0], c1) * g1[0] + src(x, b_y, z, t, s1[1], c1) * g1[1]) * U(x, b_y, z, t, d, c0, c1).conj();
+                            tmp0[c0] += (src(x, b_y, z, t, s0[0], c1) * g0[0] + src(x, b_y, z, t, s0[1], c1) * g0[1]) * U(x, b_y, z, t, d, c0, c1).conj() * coef[1];
+                            tmp1[c0] += (src(x, b_y, z, t, s1[0], c1) * g1[0] + src(x, b_y, z, t, s1[1], c1) * g1[1]) * U(x, b_y, z, t, d, c0, c1).conj() * coef[1];
                         }
                         dest(x, y, z, t, 0, c0) += tmp0[c0];
                         dest(x, y, z, t, 1, c0) += tmp1[c0];
@@ -934,8 +938,8 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
                     {
                         for (int c1 = 0; c1 < U.lat_c1; c1++)
                         {
-                            tmp0[c0] += (src(x, f_y, z, t, s0[0], c1) * g0[0] + src(x, f_y, z, t, s0[1], c1) * g0[1]) * U(x, y, z, t, d, c0, c1);
-                            tmp1[c0] += (src(x, f_y, z, t, s1[0], c1) * g1[0] + src(x, f_y, z, t, s1[1], c1) * g1[1]) * U(x, y, z, t, d, c0, c1);
+                            tmp0[c0] += (src(x, f_y, z, t, s0[0], c1) * g0[0] + src(x, f_y, z, t, s0[1], c1) * g0[1]) * U(x, y, z, t, d, c0, c1) * coef[1];
+                            tmp1[c0] += (src(x, f_y, z, t, s1[0], c1) * g1[0] + src(x, f_y, z, t, s1[1], c1) * g1[1]) * U(x, y, z, t, d, c0, c1) * coef[1];
                         }
                         dest(x, y, z, t, 0, c0) += tmp0[c0];
                         dest(x, y, z, t, 1, c0) += tmp1[c0];
@@ -965,8 +969,8 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
                     {
                         for (int c1 = 0; c1 < U.lat_c1; c1++)
                         {
-                            tmp0[c0] += (src(x, y, b_z, t, s0[0], c1) * g0[0] + src(x, y, b_z, t, s0[1], c1) * g0[1]) * U(x, y, b_z, t, d, c0, c1).conj();
-                            tmp1[c0] += (src(x, y, b_z, t, s1[0], c1) * g1[0] + src(x, y, b_z, t, s1[1], c1) * g1[1]) * U(x, y, b_z, t, d, c0, c1).conj();
+                            tmp0[c0] += (src(x, y, b_z, t, s0[0], c1) * g0[0] + src(x, y, b_z, t, s0[1], c1) * g0[1]) * U(x, y, b_z, t, d, c0, c1).conj() * coef[1];
+                            tmp1[c0] += (src(x, y, b_z, t, s1[0], c1) * g1[0] + src(x, y, b_z, t, s1[1], c1) * g1[1]) * U(x, y, b_z, t, d, c0, c1).conj() * coef[1];
                         }
                         dest(x, y, z, t, 0, c0) += tmp0[c0];
                         dest(x, y, z, t, 1, c0) += tmp1[c0];
@@ -996,8 +1000,8 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
                     {
                         for (int c1 = 0; c1 < U.lat_c1; c1++)
                         {
-                            tmp0[c0] += (src(x, y, f_z, t, s0[0], c1) * g0[0] + src(x, y, f_z, t, s0[1], c1) * g0[1]) * U(x, y, z, t, d, c0, c1);
-                            tmp1[c0] += (src(x, y, f_z, t, s1[0], c1) * g1[0] + src(x, y, f_z, t, s1[1], c1) * g1[1]) * U(x, y, z, t, d, c0, c1);
+                            tmp0[c0] += (src(x, y, f_z, t, s0[0], c1) * g0[0] + src(x, y, f_z, t, s0[1], c1) * g0[1]) * U(x, y, z, t, d, c0, c1) * coef[1];
+                            tmp1[c0] += (src(x, y, f_z, t, s1[0], c1) * g1[0] + src(x, y, f_z, t, s1[1], c1) * g1[1]) * U(x, y, z, t, d, c0, c1) * coef[1];
                         }
                         dest(x, y, z, t, 0, c0) += tmp0[c0];
                         dest(x, y, z, t, 1, c0) += tmp1[c0];
@@ -1027,8 +1031,8 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
                     {
                         for (int c1 = 0; c1 < U.lat_c1; c1++)
                         {
-                            tmp0[c0] += (src(x, y, z, b_t, s0[0], c1) * g0[0] + src(x, y, z, b_t, s0[1], c1) * g0[1]) * U(x, y, z, b_t, d, c0, c1).conj();
-                            tmp1[c0] += (src(x, y, z, b_t, s1[0], c1) * g1[0] + src(x, y, z, b_t, s1[1], c1) * g1[1]) * U(x, y, z, b_t, d, c0, c1).conj();
+                            tmp0[c0] += (src(x, y, z, b_t, s0[0], c1) * g0[0] + src(x, y, z, b_t, s0[1], c1) * g0[1]) * U(x, y, z, b_t, d, c0, c1).conj() * coef[1];
+                            tmp1[c0] += (src(x, y, z, b_t, s1[0], c1) * g1[0] + src(x, y, z, b_t, s1[1], c1) * g1[1]) * U(x, y, z, b_t, d, c0, c1).conj() * coef[1];
                         }
                         dest(x, y, z, t, 0, c0) += tmp0[c0];
                         dest(x, y, z, t, 1, c0) += tmp1[c0];
@@ -1058,8 +1062,8 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
                     {
                         for (int c1 = 0; c1 < U.lat_c1; c1++)
                         {
-                            tmp0[c0] += (src(x, y, z, f_t, s0[0], c1) * g0[0] + src(x, y, z, f_t, s0[1], c1) * g0[1]) * U(x, y, z, t, d, c0, c1);
-                            tmp1[c0] += (src(x, y, z, f_t, s1[0], c1) * g1[0] + src(x, y, z, f_t, s1[1], c1) * g1[1]) * U(x, y, z, t, d, c0, c1);
+                            tmp0[c0] += (src(x, y, z, f_t, s0[0], c1) * g0[0] + src(x, y, z, f_t, s0[1], c1) * g0[1]) * U(x, y, z, t, d, c0, c1) * coef[1];
+                            tmp1[c0] += (src(x, y, z, f_t, s1[0], c1) * g1[0] + src(x, y, z, f_t, s1[1], c1) * g1[1]) * U(x, y, z, t, d, c0, c1) * coef[1];
                         }
                         dest(x, y, z, t, 0, c0) += tmp0[c0];
                         dest(x, y, z, t, 1, c0) += tmp1[c0];
@@ -1071,11 +1075,11 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
         }
     }
 }
-void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const double mass = 1.0, const bool dag = true)
+void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest)
 {
     dest = src * 500 + 0.3;
 }
-void cg(LatticeGauge &U0, LatticeFermi &b0, LatticeFermi &x0, const int &num_x, const int &num_y, const int &num_z, const int &num_t, const double mass = 1.0, const bool dag = true, const int MAX_ITER = 1e6, double TOL = 1e-6)
+void cg(LatticeGauge &U0, LatticeFermi &b0, LatticeFermi &x0, const int &num_x, const int &num_y, const int &num_z, const int &num_t, const int MAX_ITER = 1e6, const double TOL = 1e-6)
 {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -1083,33 +1087,45 @@ void cg(LatticeGauge &U0, LatticeFermi &b0, LatticeFermi &x0, const int &num_x, 
     double r_norm2 = 0;
     LatticeGauge U = U0.block(num_x, num_y, num_z, num_t);
     LatticeFermi b = b0.block(num_x, num_y, num_z, num_t);
-    x0.assign_zero();
     LatticeFermi x = x0.block(num_x, num_y, num_z, num_t);
     LatticeFermi
-        r = b,
-        r_tilde = b,
+        r(b.lat_x, b.lat_y, b.lat_z, b.lat_t, b.lat_s, b.lat_c),
+        r_tilde(b.lat_x, b.lat_y, b.lat_z, b.lat_t, b.lat_s, b.lat_c),
         p(b.lat_x, b.lat_y, b.lat_z, b.lat_t, b.lat_s, b.lat_c),
         v(b.lat_x, b.lat_y, b.lat_z, b.lat_t, b.lat_s, b.lat_c),
         s(b.lat_x, b.lat_y, b.lat_z, b.lat_t, b.lat_s, b.lat_c),
         t(b.lat_x, b.lat_y, b.lat_z, b.lat_t, b.lat_s, b.lat_c);
     // x.rand(); // initial guess
     // dslash(x, r_tilde);
-    // // ComplexVector r = b_ - A * x;
-    // r = r - r_tilde;
-    // if x=0;r_tilde = r0 = b_;
+    // // ComplexVector r = b - A * x;
+    // b.print();
+    x.assign_random(666);
+    dslash(U, x, r, num_x, num_y, num_z, num_t);
+    r = b - r;
+    r.print();
+    r = r_tilde;
+    r.print();
+    // r.print();
+    // if x=0;r_tilde = r0 = b;
+    // x.assign_zero();
+    // r = b;
+    // r_tilde = r;
+
     for (int i = 0; i < MAX_ITER; i++)
     {
+
         rho = r_tilde.dotX(r);
+
         beta = (rho / rho_prev) * (alpha / omega);
         p = r + (p - v * omega) * beta;
         // v = A * p;
-        // dslash(U, p, v, num_x, num_y, num_z, num_t, mass, dag);
-        dslash(U, p, v, mass, dag);
+        dslash(U, p, v, num_x, num_y, num_z, num_t);
+        // dslash(U, p, v);
         alpha = rho / r_tilde.dotX(v);
         s = r - v * alpha;
         // t = A * s;
-        // dslash(U, s, t, num_x, num_y, num_z, num_t, mass, dag);
-        dslash(U, s, t, mass, dag);
+        dslash(U, s, t, num_x, num_y, num_z, num_t);
+        // dslash(U, s, t);
         omega = t.dotX(s) / t.dotX(t);
         x = x + p * alpha + s * omega;
         r = s - t * omega;
@@ -1131,20 +1147,19 @@ int main(int argc, char **argv)
 {
     MPI_Init(&argc, &argv);
     double start, end;
-    int rank, size;
+    int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    MPI_Comm_size(MPI_COMM_WORLD, &size);
     start = MPI_Wtime();
     int lat_x(8), lat_y(8), lat_z(8), lat_t(32), lat_s(4), lat_c(3);
-    int num_x(1), num_y(1), num_z(2), num_t(4);
+    int num_x(1), num_y(1), num_z(1), num_t(1);
     int MAX_ITER(1e6);
     double TOL(1e-6);
     LatticeGauge U(lat_x, lat_y, lat_z, lat_t, lat_s, lat_c);
     LatticeFermi b(lat_x, lat_y, lat_z, lat_t, lat_s, lat_c);
     LatticeFermi x(lat_x, lat_y, lat_z, lat_t, lat_s, lat_c);
-    U.assign_random(111);
-    b.assign_random(222);
-    x.assign_random(333);
+    U.assign_unit();
+    b.assign_random(111);
+    x.assign_zero();
     cg(U, b, x, num_x, num_y, num_z, num_t);
     x = x.reback(num_x, num_y, num_z, num_t);
     std::cout << "######x.norm_2():" << x.norm_2() << " ######" << std::endl;
