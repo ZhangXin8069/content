@@ -424,7 +424,7 @@ public:
         int start_z = ((rank / num_t) % num_z) * this->lat_z;
         int start_t = (rank % num_t) * this->lat_t;
         LatticeFermi result(num_x * this->lat_x, num_y * this->lat_y, num_z * this->lat_z, num_t * this->lat_t, this->lat_s, this->lat_c);
-        int global_x, global_y, global_z, global_t, index;
+        int global_x, global_y, global_z, global_t;
         for (int x = 0; x < this->lat_x; x++)
         {
             global_x = start_x + x;
@@ -797,7 +797,7 @@ public:
         int start_z = ((rank / num_t) % num_z) * this->lat_z;
         int start_t = (rank % num_t) * this->lat_t;
         LatticeGauge result(num_x * this->lat_x, num_y * this->lat_y, num_z * this->lat_z, num_t * this->lat_t, this->lat_s, this->lat_c0);
-        int global_x, global_y, global_z, global_t, index;
+        int global_x, global_y, global_z, global_t;
         for (int x = 0; x < this->lat_x; x++)
         {
             global_x = start_x + x;
