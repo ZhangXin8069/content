@@ -114,7 +114,7 @@ public:
     int lat_x, lat_y, lat_z, lat_t, lat_s, lat_c;
     int size;
     Complex *lattice_vec;
-    LatticeFermi(int lat_x, int lat_y, int lat_z, int lat_t, int lat_s, int lat_c)
+    LatticeFermi(const int &lat_x, const int &lat_y, const int &lat_z, const int &lat_t, const int &lat_s, const int &lat_c)
         : lat_x(lat_x), lat_y(lat_y), lat_z(lat_z), lat_t(lat_t), lat_s(lat_s), lat_c(lat_c), size(lat_x * lat_y * lat_z * lat_t * lat_s * lat_c)
     {
         lattice_vec = new Complex[size];
@@ -163,20 +163,20 @@ public:
         std::cout << "lat_c:" << lat_c << std::endl;
         std::cout << "size:" << size << std::endl;
     }
-    const Complex &operator[](int index) const
+    const Complex &operator[](const int &index) const
     {
         return lattice_vec[index];
     }
-    Complex &operator[](int index)
+    Complex &operator[](const int &index)
     {
         return lattice_vec[index];
     }
-    const Complex &operator()(int index_x, int index_y, int index_z, int index_t, int index_s, int index_c) const
+    const Complex &operator()(const int &index_x, const int &index_y, const int &index_z, const int &index_t, const int &index_s, const int &index_c) const
     {
         int index = index_x * lat_y * lat_z * lat_t * lat_s * lat_c + index_y * lat_z * lat_t * lat_s * lat_c + index_z * lat_t * lat_s * lat_c + index_t * lat_s * lat_c + index_s * lat_c + index_c;
         return lattice_vec[index];
     }
-    Complex &operator()(int index_x, int index_y, int index_z, int index_t, int index_s, int index_c)
+    Complex &operator()(const int &index_x, const int &index_y, const int &index_z, const int &index_t, const int &index_s, const int &index_c)
     {
         int index = index_x * lat_y * lat_z * lat_t * lat_s * lat_c + index_y * lat_z * lat_t * lat_s * lat_c + index_z * lat_t * lat_s * lat_c + index_t * lat_s * lat_c + index_s * lat_c + index_c;
         return lattice_vec[index];
@@ -281,7 +281,7 @@ public:
     {
         return !(*this == other);
     }
-    void print(int index_x, int index_y, int index_z, int index_t, int index_s, int index_c)
+    void print(const int &index_x, const int &index_y, const int &index_z, const int &index_t, const int &index_s, const int &index_c)
     {
         int index = index_x * lat_y * lat_z * lat_t * lat_s * lat_c + index_y * lat_z * lat_t * lat_s * lat_c + index_z * lat_t * lat_s * lat_c + index_t * lat_s * lat_c + index_s * lat_c + index_c;
         std::cout << "lattice_vec[" << index_x << "][" << index_y << "][" << index_z << "][" << index_t << "][" << index_s << "][" << index_c << "] = " << lattice_vec[index] << std::endl;
@@ -343,7 +343,7 @@ public:
 
         return global_result;
     }
-    LatticeFermi block(int num_x, int num_y, int num_z, int num_t, int index_x, int index_y, int index_z, int index_t)
+    LatticeFermi block(const int &num_x, const int &num_y, const int &num_z, const int &num_t, const int &index_x, const int &index_y, const int &index_z, const int &index_t)
     {
         int block_x, block_y, block_z, block_t;
         block_x = lat_x / num_x;
@@ -382,7 +382,7 @@ public:
         }
         return result;
     }
-    LatticeFermi block(int num_x, int num_y, int num_z, int num_t)
+    LatticeFermi block(const int &num_x, const int &num_y, const int &num_z, const int &num_t)
     {
         int rank;
         MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -392,7 +392,7 @@ public:
                      (rank / num_t) % num_z,
                      rank % num_t);
     }
-    LatticeFermi reback(int num_x, int num_y, int num_z, int num_t)
+    LatticeFermi reback(const int &num_x, const int &num_y, const int &num_z, const int &num_t)
     {
         int rank;
         MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -462,7 +462,7 @@ public:
     int lat_x, lat_y, lat_z, lat_t, lat_s, lat_c0, lat_c1;
     int size;
     Complex *lattice_vec;
-    LatticeGauge(int lat_x, int lat_y, int lat_z, int lat_t, int lat_s, int lat_c)
+    LatticeGauge(const int &lat_x, const int &lat_y, const int &lat_z, const int &lat_t, const int &lat_s, const int &lat_c)
         : lat_x(lat_x), lat_y(lat_y), lat_z(lat_z), lat_t(lat_t), lat_s(lat_s), lat_c0(lat_c), lat_c1(lat_c), size(lat_x * lat_y * lat_z * lat_t * lat_s * lat_c0 * lat_c1)
     {
         lattice_vec = new Complex[size];
@@ -512,20 +512,20 @@ public:
         std::cout << "lat_c1:" << lat_c1 << std::endl;
         std::cout << "size:" << size << std::endl;
     }
-    const Complex &operator[](int index) const
+    const Complex &operator[](const int &index) const
     {
         return lattice_vec[index];
     }
-    Complex &operator[](int index)
+    Complex &operator[](const int &index)
     {
         return lattice_vec[index];
     }
-    const Complex &operator()(int index_x, int index_y, int index_z, int index_t, int index_s, int index_c0, int index_c1) const
+    const Complex &operator()(const int &index_x, const int &index_y, const int &index_z, const int &index_t, const int &index_s, const int &index_c0, const int &index_c1) const
     {
         int index = index_x * lat_y * lat_z * lat_t * lat_s * lat_c0 * lat_c1 + index_y * lat_z * lat_t * lat_s * lat_c0 * lat_c1 + index_z * lat_t * lat_s * lat_c0 * lat_c1 + index_t * lat_s * lat_c0 * lat_c1 + index_s * lat_c0 * lat_c1 + index_c0 * lat_c1 + index_c1;
         return lattice_vec[index];
     }
-    Complex &operator()(int index_x, int index_y, int index_z, int index_t, int index_s, int index_c0, int index_c1)
+    Complex &operator()(const int &index_x, const int &index_y, const int &index_z, const int &index_t, const int &index_s, const int &index_c0, const int &index_c1)
     {
         int index = index_x * lat_y * lat_z * lat_t * lat_s * lat_c0 * lat_c1 + index_y * lat_z * lat_t * lat_s * lat_c0 * lat_c1 + index_z * lat_t * lat_s * lat_c0 * lat_c1 + index_t * lat_s * lat_c0 * lat_c1 + index_s * lat_c0 * lat_c1 + index_c0 * lat_c1 + index_c1;
         return lattice_vec[index];
@@ -630,7 +630,7 @@ public:
     {
         return !(*this == other);
     }
-    void print(int index_x, int index_y, int index_z, int index_t, int index_s, int index_c0, int index_c1)
+    void print(const int &index_x, const int &index_y, const int &index_z, const int &index_t, const int &index_s, const int &index_c0, const int &index_c1)
     {
         int index = index_x * lat_y * lat_z * lat_t * lat_s * lat_c0 * lat_c1 + index_y * lat_z * lat_t * lat_s * lat_c0 * lat_c1 + index_z * lat_t * lat_s * lat_c0 * lat_c1 + index_t * lat_s * lat_c0 * lat_c1 + index_s * lat_c0 * lat_c1 + index_c0 * lat_c1 + index_c1;
         std::cout << "lattice_vec[" << index_x << "][" << index_y << "][" << index_z << "][" << index_t << "][" << index_s << "][" << index_c0 << "][" << index_c1 << "] = " << lattice_vec[index] << std::endl;
@@ -695,7 +695,7 @@ public:
 
         return global_result;
     }
-    LatticeGauge block(int num_x, int num_y, int num_z, int num_t, int index_x, int index_y, int index_z, int index_t)
+    LatticeGauge block(const int &num_x, const int &num_y, const int &num_z, const int &num_t, const int &index_x, const int &index_y, const int &index_z, const int &index_t)
     {
         int block_x, block_y, block_z, block_t;
         block_x = lat_x / num_x;
@@ -737,7 +737,7 @@ public:
         }
         return result;
     }
-    LatticeGauge block(int num_x, int num_y, int num_z, int num_t)
+    LatticeGauge block(const int &num_x, const int &num_y, const int &num_z, const int &num_t)
     {
         int rank;
         MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -747,7 +747,7 @@ public:
                      (rank / num_t) % num_z,
                      rank % num_t);
     }
-    LatticeGauge reback(int num_x, int num_y, int num_z, int num_t)
+    LatticeGauge reback(const int &num_x, const int &num_y, const int &num_z, const int &num_t)
     {
         int rank;
         MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -788,7 +788,7 @@ public:
         return result;
     }
 };
-void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, int num_x, int num_y, int num_z, int num_t, double mass = 1.0, bool dag = true)
+void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &num_x, const int &num_y, const int &num_z, const int &num_t, const double mass = 1.0, const bool dag = true)
 {
     dest.assign_zero();
     const double a = 2.0;
@@ -874,11 +874,11 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, int num_x, i
         }
     }
 }
-void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, double mass = 1.0, bool dag = true)
+void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const double mass = 1.0, const bool dag = true)
 {
     dest = src * 5 + 0.3;
 }
-void cg(LatticeGauge &U0, LatticeFermi &b0, LatticeFermi &x0, int num_x, int num_y, int num_z, int num_t, double mass = 1.0, bool dag = true, int MAX_ITER = 1e6, double TOL = 1e-6)
+void cg(LatticeGauge &U0, LatticeFermi &b0, LatticeFermi &x0, const int &num_x, const int &num_y, const int &num_z, const int &num_t, const double mass = 1.0, const bool dag = true, const int MAX_ITER = 1e6, double TOL = 1e-6)
 {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -907,12 +907,12 @@ void cg(LatticeGauge &U0, LatticeFermi &b0, LatticeFermi &x0, int num_x, int num
         p = r + (p - v * omega) * beta;
         // v = A * p;
         // dslash(U, p, v, num_x, num_y, num_z, num_t, mass, dag);
-        dslash(U, p, v);
+        dslash(U, p, v, mass, dag);
         alpha = rho / r_tilde.dotX(v);
         s = r - v * alpha;
         // t = A * s;
         // dslash(U, s, t, num_x, num_y, num_z, num_t, mass, dag);
-        dslash(U, s, t);
+        dslash(U, s, t, mass, dag);
         omega = t.dotX(s) / t.dotX(t);
         x = x + p * alpha + s * omega;
         r = s - t * omega;
