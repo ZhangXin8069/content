@@ -1,7 +1,6 @@
 #include <iostream>
 #include <random>
 #include <mpi.h>
-using namespace std;
 class Complex
 {
 public:
@@ -849,6 +848,7 @@ void cg(LatticeGauge &U0, LatticeFermi &b0, LatticeFermi &x0, int num_x, int num
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     Complex rho_prev(1.0, 0.0), rho(0.0, 0.0), alpha(1.0, 0.0), omega(1.0, 0.0), beta(0.0, 0.0);
+    double r_norm2 = 0;
     LatticeGauge U = U0.block(num_x, num_y, num_z, num_t);
     LatticeFermi b = b0.block(num_x, num_y, num_z, num_t);
     x0.assign_zero();
@@ -881,13 +881,14 @@ void cg(LatticeGauge &U0, LatticeFermi &b0, LatticeFermi &x0, int num_x, int num
         omega = t.dotX(s) / t.dotX(t);
         x = x + p * alpha + s * omega;
         r = s - t * omega;
-        if (r.norm_2X() < TOL || i == MAX_ITER - 1)
+        r_norm2 = r.norm_2X();
+        std::cout << "##loop "
+                  << i
+                  << "##Residual:"
+                  << r_norm2
+                  << std::endl;
+        if (r_norm2 < TOL)
         {
-            std::cout << "##loop "
-                      << i
-                      << "##Residual:"
-                      << r.norm_2X()
-                      << std::endl;
             break;
         }
         rho_prev = rho;
@@ -911,9 +912,17 @@ int main(int argc, char **argv)
     U.assign_random(111);
     b.assign_random(222);
     x.assign_random(333);
-    // cg(U, b, x, num_x, num_y, num_z, num_t);
+    cg(U, b, x, num_x, num_y, num_z, num_t);
     LatticeFermi block_b = b.block(num_x, num_y, num_z, num_t);
     LatticeFermi block_x = x.block(num_x, num_y, num_z, num_t);
+
+    end = MPI_Wtime();
+    cout << "################" << endl;
+    cout << "time cost: " << end - start << "s" << endl;
+    MPI_Finalize();
+    return 0;
+}
+/*
     block_x.info();
     Complex dotxb = x.dot(b);
     Complex dotxb_ = block_x.dot(block_b);
@@ -923,12 +932,6 @@ int main(int argc, char **argv)
     cout << "dotxb:" << dotxb << endl;
     cout << "dotXxb:" << dotXxb << endl;
     cout << "dotXxb/dotxb:" << dotXxb / dotxb << endl;
-    end = MPI_Wtime();
-    cout << "################" << endl;
-    cout << "time cost: " << end - start << "s" << endl;
-    MPI_Finalize();
-    return 0;
-}
 /*
     LatticeFermi a(lat_x, lat_y, lat_z, lat_t, lat_s,lat_c);
     a.assign_random(686999);
