@@ -788,87 +788,284 @@ public:
         return result;
     }
 };
-void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &num_x, const int &num_y, const int &num_z, const int &num_t, const double mass = 1.0, const bool dag = true)
+void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &num_x, const int &num_y, const int &num_z, const int &num_t, const double mass = 1.0, const bool dag = false)
 {
     dest.assign_zero();
     const double a = 2.0;
     const Complex i(0.0, 1.0);
-    Complex tmp;
-    Complex tmp0;
-    Complex tmp1;
+    Complex tmp0[3];
+    Complex tmp1[3];
+    Complex g0[2];
+    Complex g1[2];
+    int s0[2];
+    int s1[2];
+    int d;
     const double Half = 0.5;
     double flag = (dag == true) ? -1 : 1;
-    for (int x = 0; x < src.lat_x; x++)
+    Complex flag0;
+    Complex flag1;
+    for (int x = 0; x < U.lat_x; x++)
     {
-        for (int y = 0; y < src.lat_y; y++)
+        for (int y = 0; y < U.lat_y; y++)
         {
-            for (int z = 0; z < src.lat_z; z++)
+            for (int z = 0; z < U.lat_z; z++)
             {
-                for (int t = 0; t < src.lat_t; t++)
+                for (int t = 0; t < U.lat_t; t++)
                 {
-                    int c = 0;
-                    // mass term
-                    for (int s = 0; s < src.lat_s; s++)
-                    {
-                        dest(x, y, z, t, s, c) += -src(x, y, z, t, s, c) * (a + mass);
-                    }
-                    int s = 0;
+                    // // mass term and others
+                    // for (int s = 0; s < U.lat_s; s++)
+                    // {
+                    //     dest(x, y, z, t, s, c) += -src(x, y, z, t, s, c) * (a + mass);
+                    // }
+
                     // backward x
-                    int b_x = (x + src.lat_x - 1) % src.lat_x;
-                    tmp = (src(x, y, z, t, s, c) - src(x, y, z, t, s, c)) * U(x, y, z, t, 1, 0, 0) * flag * Half;
-                    dest(x, y, z, t, 0, 0) += tmp;
-                    dest(x, y, z, t, 1, 0) += tmp * flag;
-                    dest(x, y, z, t, 2, 0) += tmp;
-                    dest(x, y, z, t, 3, 0) += tmp * flag;
+                    int b_x = (x + U.lat_x - 1) % U.lat_x;
+                    d = 0;
+                    tmp0[0] = 0;
+                    tmp0[1] = 0;
+                    tmp0[2] = 0;
+                    tmp1[0] = 0;
+                    tmp1[1] = 0;
+                    tmp1[2] = 0;
+                    s0[0] = 0;
+                    g0[0] = 1;
+                    s0[1] = 3;
+                    g0[1] = i;
+                    s1[0] = 1;
+                    g1[0] = 1;
+                    s1[1] = 2;
+                    g1[1] = i;
+                    flag0 = -i;
+                    flag1 = -i;
+                    for (int c0 = 0; c0 < U.lat_c0; c0++)
+                    {
+                        for (int c1 = 0; c1 < U.lat_c1; c1++)
+                        {
+                            tmp0[c0] += (src(b_x, y, z, t, s0[0], c1) * g0[0] + src(b_x, y, z, t, s0[1], c1) * g0[1]) * U(b_x, y, z, t, d, c0, c1).conj();
+                            tmp1[c0] += (src(b_x, y, z, t, s1[0], c1) * g1[0] + src(b_x, y, z, t, s1[1], c1) * g1[1]) * U(b_x, y, z, t, d, c0, c1).conj();
+                        }
+                        dest(x, y, z, t, 0, c0) += tmp0[c0];
+                        dest(x, y, z, t, 1, c0) += tmp1[c0];
+                        dest(x, y, z, t, 2, c0) += tmp1[c0] * flag1;
+                        dest(x, y, z, t, 3, c0) += tmp0[c0] * flag0;
+                    }
                     // forward x
-                    int f_x = (x + 1) % src.lat_x;
-                    tmp = (src(x, y, z, t, s, c) - src(x, y, z, t, s, c)) * U(x, y, z, t, 1, 0, 0) * flag * Half;
-                    dest(x, y, z, t, 0, 0) += tmp;
-                    dest(x, y, z, t, 1, 0) += tmp * flag;
-                    dest(x, y, z, t, 2, 0) += tmp;
-                    dest(x, y, z, t, 3, 0) += tmp * flag;
+                    int f_x = (x + 1) % U.lat_x;
+                    d = 0;
+                    tmp0[0] = 0;
+                    tmp0[1] = 0;
+                    tmp0[2] = 0;
+                    tmp1[0] = 0;
+                    tmp1[1] = 0;
+                    tmp1[2] = 0;
+                    s0[0] = 0;
+                    g0[0] = 1;
+                    s0[1] = 3;
+                    g0[1] = -i;
+                    s1[0] = 1;
+                    g1[0] = 1;
+                    s1[1] = 2;
+                    g1[1] = -i;
+                    flag0 = i;
+                    flag1 = i;
+                    for (int c0 = 0; c0 < U.lat_c0; c0++)
+                    {
+                        for (int c1 = 0; c1 < U.lat_c1; c1++)
+                        {
+                            tmp0[c0] += (src(f_x, y, z, t, s0[0], c1) * g0[0] + src(f_x, y, z, t, s0[1], c1) * g0[1]) * U(x, y, z, t, d, c0, c1);
+                            tmp1[c0] += (src(f_x, y, z, t, s1[0], c1) * g1[0] + src(f_x, y, z, t, s1[1], c1) * g1[1]) * U(x, y, z, t, d, c0, c1);
+                        }
+                        dest(x, y, z, t, 0, c0) += tmp0[c0];
+                        dest(x, y, z, t, 1, c0) += tmp1[c0];
+                        dest(x, y, z, t, 2, c0) += tmp1[c0] * flag1;
+                        dest(x, y, z, t, 3, c0) += tmp0[c0] * flag0;
+                    }
                     // backward y
-                    int b_y = (y + src.lat_y - 1) % src.lat_y;
-                    tmp = (src(x, y, z, t, s, c) - src(x, y, z, t, s, c)) * U(x, y, z, t, 1, 0, 0) * flag * Half;
-                    dest(x, y, z, t, 0, 0) += tmp;
-                    dest(x, y, z, t, 1, 0) += tmp * flag;
-                    dest(x, y, z, t, 2, 0) += tmp;
-                    dest(x, y, z, t, 3, 0) += tmp * flag;
+                    int b_y = (y + U.lat_y - 1) % U.lat_y;
+                    d = 1;
+                    tmp0[0] = 0;
+                    tmp0[1] = 0;
+                    tmp0[2] = 0;
+                    tmp1[0] = 0;
+                    tmp1[1] = 0;
+                    tmp1[2] = 0;
+                    s0[0] = 0;
+                    g0[0] = 1;
+                    s0[1] = 3;
+                    g0[1] = -1;
+                    s1[0] = 1;
+                    g1[0] = 1;
+                    s1[1] = 2;
+                    g1[1] = 1;
+                    flag0 = -1;
+                    flag1 = 1;
+                    for (int c0 = 0; c0 < U.lat_c0; c0++)
+                    {
+                        for (int c1 = 0; c1 < U.lat_c1; c1++)
+                        {
+                            tmp0[c0] += (src(x, b_y, z, t, s0[0], c1) * g0[0] + src(x, b_y, z, t, s0[1], c1) * g0[1]) * U(x, b_y, z, t, d, c0, c1).conj();
+                            tmp1[c0] += (src(x, b_y, z, t, s1[0], c1) * g1[0] + src(x, b_y, z, t, s1[1], c1) * g1[1]) * U(x, b_y, z, t, d, c0, c1).conj();
+                        }
+                        dest(x, y, z, t, 0, c0) += tmp0[c0];
+                        dest(x, y, z, t, 1, c0) += tmp1[c0];
+                        dest(x, y, z, t, 2, c0) += tmp1[c0] * flag1;
+                        dest(x, y, z, t, 3, c0) += tmp0[c0] * flag0;
+                    }
                     // forward y
-                    int f_y = (y + 1) % src.lat_y;
-                    tmp = (src(x, y, z, t, s, c) - src(x, y, z, t, s, c)) * U(x, y, z, t, 1, 0, 0) * flag * Half;
-                    dest(x, y, z, t, 0, 0) += tmp;
-                    dest(x, y, z, t, 1, 0) += tmp * flag;
-                    dest(x, y, z, t, 2, 0) += tmp;
-                    dest(x, y, z, t, 3, 0) += tmp * flag;
+                    int f_y = (y + 1) % U.lat_y;
+                    d = 1;
+                    tmp0[0] = 0;
+                    tmp0[1] = 0;
+                    tmp0[2] = 0;
+                    tmp1[0] = 0;
+                    tmp1[1] = 0;
+                    tmp1[2] = 0;
+                    s0[0] = 0;
+                    g0[0] = 1;
+                    s0[1] = 3;
+                    g0[1] = 1;
+                    s1[0] = 1;
+                    g1[0] = 1;
+                    s1[1] = 2;
+                    g1[1] = -1;
+                    flag0 = 1;
+                    flag1 = -1;
+                    for (int c0 = 0; c0 < U.lat_c0; c0++)
+                    {
+                        for (int c1 = 0; c1 < U.lat_c1; c1++)
+                        {
+                            tmp0[c0] += (src(x, f_y, z, t, s0[0], c1) * g0[0] + src(x, f_y, z, t, s0[1], c1) * g0[1]) * U(x, y, z, t, d, c0, c1);
+                            tmp1[c0] += (src(x, f_y, z, t, s1[0], c1) * g1[0] + src(x, f_y, z, t, s1[1], c1) * g1[1]) * U(x, y, z, t, d, c0, c1);
+                        }
+                        dest(x, y, z, t, 0, c0) += tmp0[c0];
+                        dest(x, y, z, t, 1, c0) += tmp1[c0];
+                        dest(x, y, z, t, 2, c0) += tmp1[c0] * flag1;
+                        dest(x, y, z, t, 3, c0) += tmp0[c0] * flag0;
+                    }
                     // backward z
-                    int b_z = (z + src.lat_z - 1) % src.lat_z;
-                    tmp = (src(x, y, z, t, s, c) - src(x, y, z, t, s, c)) * U(x, y, z, t, 1, 0, 0) * flag * Half;
-                    dest(x, y, z, t, 0, 0) += tmp;
-                    dest(x, y, z, t, 1, 0) += tmp * flag;
-                    dest(x, y, z, t, 2, 0) += tmp;
-                    dest(x, y, z, t, 3, 0) += tmp * flag;
+                    int b_z = (z + U.lat_z - 1) % U.lat_z;
+                    d = 2;
+                    tmp0[0] = 0;
+                    tmp0[1] = 0;
+                    tmp0[2] = 0;
+                    tmp1[0] = 0;
+                    tmp1[1] = 0;
+                    tmp1[2] = 0;
+                    s0[0] = 0;
+                    g0[0] = 1;
+                    s0[1] = 2;
+                    g0[1] = i;
+                    s1[0] = 1;
+                    g1[0] = 1;
+                    s1[1] = 3;
+                    g1[1] = -i;
+                    flag0 = -i;
+                    flag1 = i;
+                    for (int c0 = 0; c0 < U.lat_c0; c0++)
+                    {
+                        for (int c1 = 0; c1 < U.lat_c1; c1++)
+                        {
+                            tmp0[c0] += (src(x, y, b_z, t, s0[0], c1) * g0[0] + src(x, y, b_z, t, s0[1], c1) * g0[1]) * U(x, y, b_z, t, d, c0, c1).conj();
+                            tmp1[c0] += (src(x, y, b_z, t, s1[0], c1) * g1[0] + src(x, y, b_z, t, s1[1], c1) * g1[1]) * U(x, y, b_z, t, d, c0, c1).conj();
+                        }
+                        dest(x, y, z, t, 0, c0) += tmp0[c0];
+                        dest(x, y, z, t, 1, c0) += tmp1[c0];
+                        dest(x, y, z, t, 2, c0) += tmp0[c0] * flag0;
+                        dest(x, y, z, t, 3, c0) += tmp1[c0] * flag1;
+                    }
                     // forward z
-                    int f_z = (z + 1) % src.lat_z;
-                    tmp = (src(x, y, z, t, s, c) - src(x, y, z, t, s, c)) * U(x, y, z, t, 1, 0, 0) * flag * Half;
-                    dest(x, y, z, t, 0, 0) += tmp;
-                    dest(x, y, z, t, 1, 0) += tmp * flag;
-                    dest(x, y, z, t, 2, 0) += tmp;
-                    dest(x, y, z, t, 3, 0) += tmp * flag;
+                    int f_z = (z + 1) % U.lat_z;
+                    d = 2;
+                    tmp0[0] = 0;
+                    tmp0[1] = 0;
+                    tmp0[2] = 0;
+                    tmp1[0] = 0;
+                    tmp1[1] = 0;
+                    tmp1[2] = 0;
+                    s0[0] = 0;
+                    g0[0] = 1;
+                    s0[1] = 2;
+                    g0[1] = -i;
+                    s1[0] = 1;
+                    g1[0] = 1;
+                    s1[1] = 3;
+                    g1[1] = i;
+                    flag0 = i;
+                    flag1 = -i;
+                    for (int c0 = 0; c0 < U.lat_c0; c0++)
+                    {
+                        for (int c1 = 0; c1 < U.lat_c1; c1++)
+                        {
+                            tmp0[c0] += (src(x, y, f_z, t, s0[0], c1) * g0[0] + src(x, y, f_z, t, s0[1], c1) * g0[1]) * U(x, y, z, t, d, c0, c1);
+                            tmp1[c0] += (src(x, y, f_z, t, s1[0], c1) * g1[0] + src(x, y, f_z, t, s1[1], c1) * g1[1]) * U(x, y, z, t, d, c0, c1);
+                        }
+                        dest(x, y, z, t, 0, c0) += tmp0[c0];
+                        dest(x, y, z, t, 1, c0) += tmp1[c0];
+                        dest(x, y, z, t, 2, c0) += tmp0[c0] * flag0;
+                        dest(x, y, z, t, 3, c0) += tmp1[c0] * flag1;
+                    }
                     // backward t
-                    int b_t = (t + src.lat_t - 1) % src.lat_t;
-                    tmp = (src(x, y, z, t, s, c) - src(x, y, z, t, s, c)) * U(x, y, z, t, 1, 0, 0) * flag * Half;
-                    dest(x, y, z, t, 0, 0) += tmp;
-                    dest(x, y, z, t, 1, 0) += tmp * flag;
-                    dest(x, y, z, t, 2, 0) += tmp;
-                    dest(x, y, z, t, 3, 0) += tmp * flag;
+                    int b_t = (t + U.lat_t - 1) % U.lat_t;
+                    d = 3;
+                    tmp0[0] = 0;
+                    tmp0[1] = 0;
+                    tmp0[2] = 0;
+                    tmp1[0] = 0;
+                    tmp1[1] = 0;
+                    tmp1[2] = 0;
+                    s0[0] = 0;
+                    g0[0] = 1;
+                    s0[1] = 2;
+                    g0[1] = 1;
+                    s1[0] = 1;
+                    g1[0] = 1;
+                    s1[1] = 3;
+                    g1[1] = 1;
+                    flag0 = 1;
+                    flag1 = 1;
+                    for (int c0 = 0; c0 < U.lat_c0; c0++)
+                    {
+                        for (int c1 = 0; c1 < U.lat_c1; c1++)
+                        {
+                            tmp0[c0] += (src(x, y, z, b_t, s0[0], c1) * g0[0] + src(x, y, z, b_t, s0[1], c1) * g0[1]) * U(x, y, z, b_t, d, c0, c1).conj();
+                            tmp1[c0] += (src(x, y, z, b_t, s1[0], c1) * g1[0] + src(x, y, z, b_t, s1[1], c1) * g1[1]) * U(x, y, z, b_t, d, c0, c1).conj();
+                        }
+                        dest(x, y, z, t, 0, c0) += tmp0[c0];
+                        dest(x, y, z, t, 1, c0) += tmp1[c0];
+                        dest(x, y, z, t, 2, c0) += tmp0[c0] * flag0;
+                        dest(x, y, z, t, 3, c0) += tmp1[c0] * flag1;
+                    }
                     // forward t
-                    int f_t = (t + 1) % src.lat_t;
-                    tmp = (src(x, y, z, t, s, c) - src(x, y, z, t, s, c)) * U(x, y, z, t, 1, 0, 0) * flag * Half;
-                    dest(x, y, z, t, 0, 0) += tmp;
-                    dest(x, y, z, t, 1, 0) += tmp * flag;
-                    dest(x, y, z, t, 2, 0) += tmp;
-                    dest(x, y, z, t, 3, 0) += tmp * flag;
+                    int f_t = (t + 1) % U.lat_t;
+                    d = 3;
+                    tmp0[0] = 0;
+                    tmp0[1] = 0;
+                    tmp0[2] = 0;
+                    tmp1[0] = 0;
+                    tmp1[1] = 0;
+                    tmp1[2] = 0;
+                    s0[0] = 0;
+                    g0[0] = 1;
+                    s0[1] = 2;
+                    g0[1] = -1;
+                    s1[0] = 1;
+                    g1[0] = 1;
+                    s1[1] = 3;
+                    g1[1] = -1;
+                    flag0 = -1;
+                    flag1 = -1;
+                    for (int c0 = 0; c0 < U.lat_c0; c0++)
+                    {
+                        for (int c1 = 0; c1 < U.lat_c1; c1++)
+                        {
+                            tmp0[c0] += (src(x, y, z, f_t, s0[0], c1) * g0[0] + src(x, y, z, f_t, s0[1], c1) * g0[1]) * U(x, y, z, t, d, c0, c1);
+                            tmp1[c0] += (src(x, y, z, f_t, s1[0], c1) * g1[0] + src(x, y, z, f_t, s1[1], c1) * g1[1]) * U(x, y, z, t, d, c0, c1);
+                        }
+                        dest(x, y, z, t, 0, c0) += tmp0[c0];
+                        dest(x, y, z, t, 1, c0) += tmp1[c0];
+                        dest(x, y, z, t, 2, c0) += tmp0[c0] * flag0;
+                        dest(x, y, z, t, 3, c0) += tmp1[c0] * flag1;
+                    }
                 }
             }
         }
@@ -876,7 +1073,7 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
 }
 void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const double mass = 1.0, const bool dag = true)
 {
-    dest = src * 5 + 0.3;
+    dest = src * 500 + 0.3;
 }
 void cg(LatticeGauge &U0, LatticeFermi &b0, LatticeFermi &x0, const int &num_x, const int &num_y, const int &num_z, const int &num_t, const double mass = 1.0, const bool dag = true, const int MAX_ITER = 1e6, double TOL = 1e-6)
 {
@@ -938,8 +1135,8 @@ int main(int argc, char **argv)
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     start = MPI_Wtime();
-    int lat_x(8), lat_y(8), lat_z(8), lat_t(16), lat_s(4), lat_c(3);
-    int num_x(1), num_y(2), num_z(2), num_t(2);
+    int lat_x(8), lat_y(8), lat_z(8), lat_t(32), lat_s(4), lat_c(3);
+    int num_x(1), num_y(1), num_z(2), num_t(4);
     int MAX_ITER(1e6);
     double TOL(1e-6);
     LatticeGauge U(lat_x, lat_y, lat_z, lat_t, lat_s, lat_c);
@@ -949,9 +1146,13 @@ int main(int argc, char **argv)
     b.assign_random(222);
     x.assign_random(333);
     cg(U, b, x, num_x, num_y, num_z, num_t);
+    // if(rank==0){
+    // x.print();
+    // }
     end = MPI_Wtime();
     std::cout << "################" << std::endl;
     std::cout << "time cost: " << end - start << "s" << std::endl;
     MPI_Finalize();
     return 0;
 }
+u
