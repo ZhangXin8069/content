@@ -660,6 +660,41 @@ public:
             }
         }
     }
+    double norm_2()
+    {
+        double result = 0;
+        for (int i = 0; i < size; i++)
+        {
+            result = result + lattice_vec[i].data[0] * lattice_vec[i].data[0] + lattice_vec[i].data[1] * lattice_vec[i].data[1];
+        }
+        return result;
+    }
+    double norm_2X()
+    {
+        double local_result = 0;
+        double global_result = 0;
+        local_result = norm_2();
+        MPI_Allreduce(&local_result, &global_result, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
+        return global_result;
+    }
+    Complex dot(const LatticeGauge &other)
+    {
+        Complex result;
+        for (int i = 0; i < size; i++)
+        {
+            result = result + lattice_vec[i].conj() * other[i];
+        }
+        return result;
+    }
+    Complex dotX(const LatticeGauge &other)
+    {
+        Complex local_result;
+        Complex global_result;
+        local_result = dot(other);
+        MPI_Allreduce(&local_result, &global_result, 2, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
+
+        return global_result;
+    }
     LatticeGauge block(int num_x, int num_y, int num_z, int num_t, int index_x, int index_y, int index_z, int index_t)
     {
         int block_x, block_y, block_z, block_t;
@@ -841,7 +876,7 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, int num_x, i
 }
 void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, double mass = 1.0, bool dag = true)
 {
-    dest = src * 0.5;
+    dest = src * 5 + 0.3;
 }
 void cg(LatticeGauge &U0, LatticeFermi &b0, LatticeFermi &x0, int num_x, int num_y, int num_z, int num_t, double mass = 1.0, bool dag = true, int MAX_ITER = 1e6, double TOL = 1e-6)
 {
@@ -887,8 +922,9 @@ void cg(LatticeGauge &U0, LatticeFermi &b0, LatticeFermi &x0, int num_x, int num
                   << "##Residual:"
                   << r_norm2
                   << std::endl;
-        if (r_norm2 < TOL)
+        if (r_norm2 < TOL || i == MAX_ITER - 1)
         {
+            x0 = x.reback(num_x, num_y, num_z, num_t);
             break;
         }
         rho_prev = rho;
@@ -902,8 +938,8 @@ int main(int argc, char **argv)
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     start = MPI_Wtime();
-    int lat_x(16), lat_y(16), lat_z(16), lat_t(32), lat_s(4), lat_c(3);
-    int num_x(1), num_y(2), num_z(4), num_t(2);
+    int lat_x(8), lat_y(8), lat_z(8), lat_t(16), lat_s(4), lat_c(3);
+    int num_x(1), num_y(2), num_z(2), num_t(2);
     int MAX_ITER(1e6);
     double TOL(1e-6);
     LatticeGauge U(lat_x, lat_y, lat_z, lat_t, lat_s, lat_c);
@@ -913,121 +949,9 @@ int main(int argc, char **argv)
     b.assign_random(222);
     x.assign_random(333);
     cg(U, b, x, num_x, num_y, num_z, num_t);
-    LatticeFermi block_b = b.block(num_x, num_y, num_z, num_t);
-    LatticeFermi block_x = x.block(num_x, num_y, num_z, num_t);
-
     end = MPI_Wtime();
-    cout << "################" << endl;
-    cout << "time cost: " << end - start << "s" << endl;
+    std::cout << "################" << std::endl;
+    std::cout << "time cost: " << end - start << "s" << std::endl;
     MPI_Finalize();
     return 0;
 }
-/*
-    block_x.info();
-    Complex dotxb = x.dot(b);
-    Complex dotxb_ = block_x.dot(block_b);
-    Complex dotXxb = block_x.dotX(block_b);
-    cout << "dotxb_:" << dotxb_ << endl;
-    cout << "dotxb:" << dotxb << endl;
-    cout << "dotxb:" << dotxb << endl;
-    cout << "dotXxb:" << dotXxb << endl;
-    cout << "dotXxb/dotxb:" << dotXxb / dotxb << endl;
-/*
-    LatticeFermi a(lat_x, lat_y, lat_z, lat_t, lat_s,lat_c);
-    a.assign_random(686999);
-    a.info();
-    LatticeFermi b(lat_x, lat_y, lat_z, lat_t, lat_s,lat_c);
-    b.info();
-    b.assign_random(667);
-    Complex dotXa;
-    Complex dotXab;
-    cout << "dotab:" << dot(a, b) << endl;
-    cout << "dotXab:" << dotXab << endl;
-    cout << "dotXab/dotab:" << dotXab / dot(a, b) << endl;
-*/
-/*
-    LatticeGauge U(lat_x, lat_y, lat_z, lat_t, lat_s,lat_c);
-    U.assign_random(0007);
-    U.info();
-
-    LatticePropagator prop = fermi_to_prop(a,2);
-    print(0, 0, 0, 0, 1);
-    print();
-    prop.print(0, 0, 0, 1, 4);
-    prop.print();
-    U.print();
-    LatticeFermi a1(lat_x, lat_y, lat_z, lat_t, lat_s,lat_c);
-    a1.assign_random(12);
-    LatticeFermi a2(lat_x, lat_y, lat_z, lat_t, lat_s,lat_c);
-    a2.assign_random(13);
-    LatticeFermi sum = a1 + a2;
-    LatticeFermi diff = a1 - a2;
-    LatticeFermi prod = a1 * a2;
-    LatticeFermi quot = a1 / a2;
-    LatticeFermi neg = -a1;
-    a1.print(1, 1, 1, 1, 1);
-    a2.print(1, 1, 1, 1, 1);
-    // sum.print(1, 1, 1, 1, 1);
-    // diff.print(1, 1, 1, 1, 1);
-    // prod.print(1, 1, 1, 1, 1);
-    // quot.print(1, 1, 1, 1, 1);
-    // neg.print(1, 1, 1, 1, 1);
-
-    bool same = (a1 == a2);
-    bool different = (a1 != a2);
-    cout << "same" << same;
-    cout << "different" << different;
-
-    a1.print();
-    a2.print();
-    cout << dot(a1, a2);
-    cout << a1[0].imag;
-    */
-/*
-LatticeFermi b(lat_x, lat_y, lat_z, lat_t, lat_s,lat_c);
-// b.info();
-b.assign_random(667);
-int num_x(1), num_y(1), num_z(2), num_t(2), 1(1);
-Complex dotXa;
-Complex dotXab;
-for (int x = 0; x < num_x; x++)
-{
-    for (int y = 0; y < num_y; y++)
-    {
-        for (int z = 0; z < num_z; z++)
-        {
-            for (int t = 0; t < num_t; t++)
-            {
-                for (int s = 0; s < 1; s++)
-                {
-                    int index = x * num_y * num_z * num_t * 1 + y * num_z * num_t * 1 + z * num_t * 1 + t * 1 + s;
-                    if (rank == index)
-                    {
-                        LatticeFermi block_a = block(a, num_x, num_y, num_z, num_t, 1, x, y, z, t, s,c);
-                        LatticeFermi block_b = block(b, num_x, num_y, num_z, num_t, 1, x, y, z, t, s,c);
-                        dotXab =dotX(block_a, block_b);
-                        cout << "block_dotab:" << dot(block_a,block_b) << endl;
-                        dotXa =dotX(block_a, block_b);
-                        cout << "block_dot:" << dot(block_a,block_b) << endl;
-
-                    }
-                }
-            }
-        }
-    }
-}
-cout << "dotab:" << dot(a, b) << endl;
-cout << "dotXab:" <<  dotXab << endl;
-cout << "dotXab/dotab:" <<dotXab / dot(a, b) << endl;
-// cout << "dot:" << dot(a, a) << endl;
-// cout << "dotX:" <<  dotXa << endl;
-// cout << "dotX/dot:" <<dotXa / dot(a, a) << endl;
-*/
-/*
-LatticeFermi b0 = block(a, 1, 2, 1, 1, 1, 0, 0, 0, 0, 0);
-LatticeFermi b1 = block(a, 1, 2, 1, 1, 1, 0, 1, 0, 0, 0);
-cout << "dotx:" << dot(a, a) << endl;
-cout << "norm2x:" << norm_2(a) << endl;
-cout << "dotb0:" << dot(b0,b0) << endl;
-cout << "dotb1:" << dot(b1,b1) << endl;
-*/
