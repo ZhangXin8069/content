@@ -127,6 +127,26 @@ public:
             delete[] lattice_vec;
         }
     }
+    LatticeFermi &operator=(const LatticeFermi &other)
+    {
+        if (this != &other)
+        {
+            lat_x = other.lat_x;
+            lat_y = other.lat_y;
+            lat_z = other.lat_z;
+            lat_t = other.lat_t;
+            lat_s = other.lat_s;
+            lat_c = other.lat_c;
+            size = other.size;
+            delete[] lattice_vec;
+            lattice_vec = new Complex[size];
+            for (int i = 0; i < size; i++)
+            {
+                lattice_vec[i] = other.lattice_vec[i];
+            }
+        }
+        return *this;
+    }
     void assign_zero()
     {
         for (int i = 0; i < size; i++)
