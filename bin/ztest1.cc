@@ -828,8 +828,26 @@ public:
         return result;
     }
 };
-void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &num_x, const int &num_y, const int &num_z, const int &num_t)
+void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest)
 {
+    for (int i = 0; i < dest.size; i++)
+    {
+        dest.lattice_vec[i] = src.lattice_vec[i] * 0.5;
+    }
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    if (rank == 0)
+    {
+        dest.lattice_vec[0] *= 2;
+    }
+}
+void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &num_x, const int &num_y, const int &num_z, const int &num_t, const bool test = false)
+{
+    if (test)
+    {
+        dslash(U, src, dest);
+        return;
+    }
     dest.assign_zero();
     const Complex i(0.0, 1.0);
     Complex tmp0[3];
@@ -1115,15 +1133,7 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
         }
     }
 }
-void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest)
-{
-    for (int i = 0; i < dest.size; i++)
-    {
-        dest.lattice_vec[i] = src.lattice_vec[i] * 5;
-    }
-    dest.lattice_vec[0] *= 2;
-}
-void cg(LatticeGauge &U, LatticeFermi &b, LatticeFermi &x, const int &num_x, const int &num_y, const int &num_z, const int &num_t, const int MAX_ITER = 1e6, const double TOL = 1e-6)
+void cg(LatticeGauge &U, LatticeFermi &b, LatticeFermi &x, const int &num_x, const int &num_y, const int &num_z, const int &num_t, const int MAX_ITER = 1e6, const double TOL = 1e-6, const double test = false)
 {
     Complex rho_prev(1.0, 0.0), rho(0.0, 0.0), alpha(1.0, 0.0), omega(1.0, 0.0), beta(0.0, 0.0);
     double r_norm2 = 0;
@@ -1135,12 +1145,9 @@ void cg(LatticeGauge &U, LatticeFermi &b, LatticeFermi &x, const int &num_x, con
         s(b.lat_x, b.lat_y, b.lat_z, b.lat_t, b.lat_s, b.lat_c),
         t(b.lat_x, b.lat_y, b.lat_z, b.lat_t, b.lat_s, b.lat_c);
     // x.rand(); // initial guess
-    // dslash(x, r_tilde);
     // // ComplexVector r = b - A * x;
-    // b.print();
     x.assign_random(666);
-    dslash(U, x, r, num_x, num_y, num_z, num_t);
-    // dslash(U, x, r);
+    dslash(U, x, r, num_x, num_y, num_z, num_t, test);
     r = b - r;
     r_tilde = r;
     // r.print();
@@ -1157,16 +1164,14 @@ void cg(LatticeGauge &U, LatticeFermi &b, LatticeFermi &x, const int &num_x, con
         p = r + (p - v * omega) * beta;
         std::cout << "######p.norm_2():" << p.norm_2() << std::endl;
         // v = A * p;
-        dslash(U, p, v, num_x, num_y, num_z, num_t);
-        // dslash(U, p, v);
+        dslash(U, p, v, num_x, num_y, num_z, num_t, test);
         std::cout << "######v.norm_2():" << v.norm_2() << std::endl;
         alpha = rho / r_tilde.dotX(v);
         std::cout << "######alpha:" << alpha << " ######" << std::endl;
         s = r - v * alpha;
         std::cout << "######s.norm_2():" << s.norm_2() << std::endl;
         // t = A * s;
-        dslash(U, s, t, num_x, num_y, num_z, num_t);
-        // dslash(U, s, t);
+        dslash(U, s, t, num_x, num_y, num_z, num_t, test);
         std::cout << "######t.norm_2():" << t.norm_2() << std::endl;
         omega = t.dotX(s) / t.dotX(t);
         std::cout << "######omega:" << omega << " ######" << std::endl;
@@ -1191,32 +1196,39 @@ void cg(LatticeGauge &U, LatticeFermi &b, LatticeFermi &x, const int &num_x, con
 int main(int argc, char **argv)
 {
     double start, end;
-    int lat_x(8), lat_y(8), lat_z(8), lat_t(16), lat_s(4), lat_c(3);
-    int num_x(1), num_y(1), num_z(1), num_t(1);
+    int lat_x(16), lat_y(16), lat_z(16), lat_t(32), lat_s(4), lat_c(3);
+    int num_x(1), num_y(1), num_z(2), num_t(4);
     int MAX_ITER(1e6);
     double TOL(1e-12);
     LatticeGauge U(lat_x, lat_y, lat_z, lat_t, lat_s, lat_c);
     LatticeFermi b(lat_x, lat_y, lat_z, lat_t, lat_s, lat_c);
     LatticeFermi x(lat_x, lat_y, lat_z, lat_t, lat_s, lat_c);
     U.assign_random(000);
+    U.assign_unit();
     b.assign_random(111);
+    b.assign_zero();
+    b(0, 0, 0, 0, 0, 0) = 1.0;
+    x.assign_random(222);
     x.assign_zero();
     MPI_Init(&argc, &argv);
     LatticeGauge block_U = U.block(num_x, num_y, num_z, num_t);
     LatticeFermi block_b = b.block(num_x, num_y, num_z, num_t);
     LatticeFermi block_x = x.block(num_x, num_y, num_z, num_t);
     start = MPI_Wtime();
-    cg(block_U, block_b, block_x, num_x, num_y, num_z, num_t, MAX_ITER, TOL);
+    // cg(block_U, block_b, block_x, num_x, num_y, num_z, num_t, MAX_ITER, TOL, true);
+    dslash(block_U, block_b, block_x, num_x, num_y, num_z, num_t, false);
     end = MPI_Wtime();
-    x = block_x.reback(num_x, num_y, num_z, num_t);
-    // x.print();
-    std::cout << "######x.norm_2():" << x.norm_2() << " ######" << std::endl;
+    LatticeFermi reback_x = block_x.reback(num_x, num_y, num_z, num_t);
+    x = reback_x - b;
+    x.print(0, 0, 0, 0, 0, 0);
+    x.print(0, 0, 0, 0, 0, 1);
     // int rank;
     // MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     // if(rank==0){
     // x.print();
     // }
-    std::cout << "######time cost:" << end - start << "s ######" << std::endl;
+    std::cout
+        << "######time cost:" << end - start << "s ######" << std::endl;
     MPI_Finalize();
     return 0;
 }
