@@ -1,5 +1,5 @@
-#ifndef ZTEST_H
-#define ZTEST_H
+#ifndef ZUDAX_H
+#define ZUDAX_H
 #include <iostream>
 #include <random>
 #include <mpi.h>
