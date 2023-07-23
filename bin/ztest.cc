@@ -21,8 +21,8 @@ int main(int argc, char **argv)
     LatticeFermi block_b = b.block(num_x, num_y, num_z, num_t);
     LatticeFermi block_x = x.block(num_x, num_y, num_z, num_t);
     start = MPI_Wtime();
-    // cg(block_U, block_b, block_x, num_x, num_y, num_z, num_t, MAX_ITER, TOL, true);
-    dslash(block_U, block_b, block_x, num_x, num_y, num_z, num_t, false);
+    cg(block_U, block_b, block_x, num_x, num_y, num_z, num_t, MAX_ITER, TOL, true);
+    // dslash(block_U, block_b, block_x, false);
     end = MPI_Wtime();
     LatticeFermi reback_x = block_x.reback(num_x, num_y, num_z, num_t);
     x = reback_x - b;

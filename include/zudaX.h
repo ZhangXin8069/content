@@ -836,15 +836,13 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest)
     {
         dest.lattice_vec[i] = src.lattice_vec[i] * 0.5;
     }
-    int rank;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    if (rank == 0)
-    {
-        dest.lattice_vec[0] *= 2;
-    }
+
+    dest.lattice_vec[0] *= 2;
 }
-void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &num_x, const int &num_y, const int &num_z, const int &num_t, const bool &test)
+void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const bool &test)
 {
+    std::cout << "######U.norm_2():" << U.norm_2() << std::endl;
+    std::cout << "######src.norm_2():" << src.norm_2() << std::endl;
     if (test)
     {
         dslash(U, src, dest);
@@ -859,11 +857,12 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
     int s0[2];
     int s1[2];
     int d;
-    const double a = 2.0;
-    const double kappa = 1.0;
+    // const double a = 1.0;
+    // const double kappa = 1.0;
+    // const double m = -3.5;
     double coef[2];
-    coef[0] = 1 / a;
-    coef[1] = -kappa / a;
+    coef[0] = 0;
+    coef[1] = 1;
     Complex flag0;
     Complex flag1;
     for (int x = 0; x < U.lat_x; x++)
@@ -905,8 +904,8 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
                     {
                         for (int c1 = 0; c1 < U.lat_c1; c1++)
                         {
-                            tmp0[c0] += (src(b_x, y, z, t, s0[0], c1) * g0[0] + src(b_x, y, z, t, s0[1], c1) * g0[1]) * U(b_x, y, z, t, d, c0, c1).conj() * coef[1];
-                            tmp1[c0] += (src(b_x, y, z, t, s1[0], c1) * g1[0] + src(b_x, y, z, t, s1[1], c1) * g1[1]) * U(b_x, y, z, t, d, c0, c1).conj() * coef[1];
+                            tmp0[c0] += (src(b_x, y, z, t, s0[0], c1) * g0[0] + src(b_x, y, z, t, s0[1], c1) * g0[1]) * U(b_x, y, z, t, d, c1, c0).conj() * coef[1];// what the fuck ? Hermitian operator！
+                            tmp1[c0] += (src(b_x, y, z, t, s1[0], c1) * g1[0] + src(b_x, y, z, t, s1[1], c1) * g1[1]) * U(b_x, y, z, t, d, c1, c0).conj() * coef[1];// what the fuck ? Hermitian operator！
                         }
                         dest(x, y, z, t, 0, c0) += tmp0[c0];
                         dest(x, y, z, t, 1, c0) += tmp1[c0];
@@ -967,8 +966,8 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
                     {
                         for (int c1 = 0; c1 < U.lat_c1; c1++)
                         {
-                            tmp0[c0] += (src(x, b_y, z, t, s0[0], c1) * g0[0] + src(x, b_y, z, t, s0[1], c1) * g0[1]) * U(x, b_y, z, t, d, c0, c1).conj() * coef[1];
-                            tmp1[c0] += (src(x, b_y, z, t, s1[0], c1) * g1[0] + src(x, b_y, z, t, s1[1], c1) * g1[1]) * U(x, b_y, z, t, d, c0, c1).conj() * coef[1];
+                            tmp0[c0] += (src(x, b_y, z, t, s0[0], c1) * g0[0] + src(x, b_y, z, t, s0[1], c1) * g0[1]) * U(x, b_y, z, t, d, c1, c0).conj() * coef[1];// what the fuck ? Hermitian operator！
+                            tmp1[c0] += (src(x, b_y, z, t, s1[0], c1) * g1[0] + src(x, b_y, z, t, s1[1], c1) * g1[1]) * U(x, b_y, z, t, d, c1, c0).conj() * coef[1];// what the fuck ? Hermitian operator！
                         }
                         dest(x, y, z, t, 0, c0) += tmp0[c0];
                         dest(x, y, z, t, 1, c0) += tmp1[c0];
@@ -1029,8 +1028,8 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
                     {
                         for (int c1 = 0; c1 < U.lat_c1; c1++)
                         {
-                            tmp0[c0] += (src(x, y, b_z, t, s0[0], c1) * g0[0] + src(x, y, b_z, t, s0[1], c1) * g0[1]) * U(x, y, b_z, t, d, c0, c1).conj() * coef[1];
-                            tmp1[c0] += (src(x, y, b_z, t, s1[0], c1) * g1[0] + src(x, y, b_z, t, s1[1], c1) * g1[1]) * U(x, y, b_z, t, d, c0, c1).conj() * coef[1];
+                            tmp0[c0] += (src(x, y, b_z, t, s0[0], c1) * g0[0] + src(x, y, b_z, t, s0[1], c1) * g0[1]) * U(x, y, b_z, t, d, c1, c0).conj() * coef[1];// what the fuck ? Hermitian operator！
+                            tmp1[c0] += (src(x, y, b_z, t, s1[0], c1) * g1[0] + src(x, y, b_z, t, s1[1], c1) * g1[1]) * U(x, y, b_z, t, d, c1, c0).conj() * coef[1];// what the fuck ? Hermitian operator！
                         }
                         dest(x, y, z, t, 0, c0) += tmp0[c0];
                         dest(x, y, z, t, 1, c0) += tmp1[c0];
@@ -1091,8 +1090,8 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
                     {
                         for (int c1 = 0; c1 < U.lat_c1; c1++)
                         {
-                            tmp0[c0] += (src(x, y, z, b_t, s0[0], c1) * g0[0] + src(x, y, z, b_t, s0[1], c1) * g0[1]) * U(x, y, z, b_t, d, c0, c1).conj() * coef[1];
-                            tmp1[c0] += (src(x, y, z, b_t, s1[0], c1) * g1[0] + src(x, y, z, b_t, s1[1], c1) * g1[1]) * U(x, y, z, b_t, d, c0, c1).conj() * coef[1];
+                            tmp0[c0] += (src(x, y, z, b_t, s0[0], c1) * g0[0] + src(x, y, z, b_t, s0[1], c1) * g0[1]) * U(x, y, z, b_t, d, c1, c0).conj() * coef[1];// what the fuck ? Hermitian operator！
+                            tmp1[c0] += (src(x, y, z, b_t, s1[0], c1) * g1[0] + src(x, y, z, b_t, s1[1], c1) * g1[1]) * U(x, y, z, b_t, d, c1, c0).conj() * coef[1];// what the fuck ? Hermitian operator！
                         }
                         dest(x, y, z, t, 0, c0) += tmp0[c0];
                         dest(x, y, z, t, 1, c0) += tmp1[c0];
@@ -1134,6 +1133,7 @@ void dslash(LatticeGauge &U, LatticeFermi &src, LatticeFermi &dest, const int &n
             }
         }
     }
+    std::cout << "######dest.norm_2():" << dest.norm_2() << std::endl;
 }
 void cg(LatticeGauge &U, LatticeFermi &b, LatticeFermi &x, const int &num_x, const int &num_y, const int &num_z, const int &num_t, const int &MAX_ITER, const double &TOL, const double &test)
 {
@@ -1149,7 +1149,7 @@ void cg(LatticeGauge &U, LatticeFermi &b, LatticeFermi &x, const int &num_x, con
     // x.rand(); // initial guess
     // // ComplexVector r = b - A * x;
     x.assign_random(666);
-    dslash(U, x, r, num_x, num_y, num_z, num_t, test);
+    dslash(U, x, r,test);;
     r = b - r;
     r_tilde = r;
     // r.print();
@@ -1166,14 +1166,14 @@ void cg(LatticeGauge &U, LatticeFermi &b, LatticeFermi &x, const int &num_x, con
         p = r + (p - v * omega) * beta;
         std::cout << "######p.norm_2():" << p.norm_2() << std::endl;
         // v = A * p;
-        dslash(U, p, v, num_x, num_y, num_z, num_t, test);
+        dslash(U, p, v,test);;
         std::cout << "######v.norm_2():" << v.norm_2() << std::endl;
         alpha = rho / r_tilde.dotX(v);
         std::cout << "######alpha:" << alpha << " ######" << std::endl;
         s = r - v * alpha;
         std::cout << "######s.norm_2():" << s.norm_2() << std::endl;
         // t = A * s;
-        dslash(U, s, t, num_x, num_y, num_z, num_t, test);
+        dslash(U, s, t,test);;
         std::cout << "######t.norm_2():" << t.norm_2() << std::endl;
         omega = t.dotX(s) / t.dotX(t);
         std::cout << "######omega:" << omega << " ######" << std::endl;
@@ -1212,7 +1212,7 @@ void ext_dslash(const double *U_real, const double *U_imag, const double *src_re
         dest[i].data[0] = dest_real[i];
         dest[i].data[1] = dest_imag[i];
     }
-    dslash(U, src, dest, num_x, num_y, num_z, num_t, test);
+    dslash(U, src, dest,test);;
 }
 void ext_cg(const double *U_real, const double *U_imag, const double *b_real, const double *b_imag, const double *x_real, const double *x_imag, const int &lat_x, const int &lat_y, const int &lat_z, const int &lat_t, const int &lat_s, const int &lat_c, const int &num_x, const int &num_y, const int &num_z, const int &num_t, const int MAX_ITER, const double TOL, const bool &test)
 {
