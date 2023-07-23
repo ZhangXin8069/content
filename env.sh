@@ -12,12 +12,12 @@ tmp_path=${_HOME}/${tmp_name}
 
 # source
 ## mkdir
-mkdir ${_HOME}/bin
-mkdir ${_HOME}/include
-mkdir ${_HOME}/lib
-mkdir ${_HOME}/scripts
-mkdir ${_HOME}/test
-mkdir ${_HOME}/tmp
+mkdir ${_HOME}/bin -p
+mkdir ${_HOME}/include -p
+mkdir ${_HOME}/lib -p
+mkdir ${_HOME}/scripts -p
+mkdir ${_HOME}/test -p
+mkdir ${_HOME}/tmp -p
 
 source ${_HOME}/tmp/scripts.sh
 
