@@ -1,8 +1,6 @@
 # source
-_PATH=$(
-       pushd "$(dirname "$0")"
-       pwd
-)
+_PATH=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+echo "PATH:"$_PATH
 pushd ${_PATH}/../
 source ./env.sh
 popd
