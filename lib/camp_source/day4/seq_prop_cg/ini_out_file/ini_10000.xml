@@ -1,0 +1,628 @@
+<?xml version="1.0"?>
+<chroma>
+<Param> 
+  <InlineMeasurements>
+
+    <elem>
+        <annotation>
+            Read the L prop
+        </annotation>
+        <Name>QIO_READ_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+            <object_id>L_quark_propagator</object_id>
+            <object_type>LatticePropagator</object_type>
+        </NamedObject>
+        <File>
+	    <file_name>../../class4_prop/C24P31/Propagators/prop_10000_CoulombWall_t0-n1_P505050_m-0.2400_single</file_name>
+            <parallel_io>true</parallel_io>
+        </File>
+    </elem>
+
+    <elem>
+      <Name>SINK_SMEAR</Name>
+      <Frequency>1</Frequency>
+      <Param>
+        <version>5</version>
+        <Sink>
+          <version>1</version>
+          <SinkType>POINT_SINK</SinkType>
+          <j_decay>3</j_decay>
+        </Sink>
+      </Param>
+      <NamedObject>
+        <gauge_id>default_gauge_field</gauge_id>
+        <prop_id>L_quark_propagator</prop_id>
+        <smeared_prop_id>smeared_L_quark_propagator</smeared_prop_id>
+      </NamedObject>
+    </elem>
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+            <object_id>L_quark_propagator</object_id>
+        </NamedObject>
+    </elem>
+
+    <elem>
+      <Name>SEQSOURCE_FAST</Name>
+      <SmearedProps>true</SmearedProps>
+      <multi_tSinks>3</multi_tSinks>
+      <Frequency>1</Frequency>
+      <Param>
+        <version>2</version>
+        <SeqSource>
+          <version>1</version>
+          <SeqSourceType>WEAK_CURRENT_gAgV_CUR</SeqSourceType>
+          <j_decay>3</j_decay>
+          <t_sink>0</t_sink>
+          <sink_mom>0 0 0</sink_mom>
+        </SeqSource>
+      </Param>
+      <PropSink>
+        <version>5</version>
+        <Sink>
+          <version>2</version>
+          <SinkType>POINT_SINK</SinkType>
+          <j_decay>3</j_decay>
+          <Displacement>
+            <version>1</version>
+            <DisplacementType>NONE</DisplacementType>
+          </Displacement>
+        </Sink>
+      </PropSink>
+      <NamedObject>
+        <prop_ids>
+          <elem>smeared_L_quark_propagator</elem>
+          <elem>smeared_L_quark_propagator</elem>
+        </prop_ids>
+        <seqsource_id>
+          <elem>seqsrc_tseq_3</elem>
+        </seqsource_id>
+        <gauge_id>default_gauge_field</gauge_id>
+      </NamedObject>
+   </elem>
+
+  <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>UNPRECONDITIONED_CLOVER</FermAct>
+          <Mass>-0.2400</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+        </FermionAction>
+        <InvertParam>
+          <invType>CG_INVERTER</invType>
+          <RsdCG>1.0e-5</RsdCG>
+          <MaxCG>1000</MaxCG>
+        </InvertParam>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>seqsrc_tseq_3</source_id>
+      <prop_id>prop_P0_tseq_3</prop_id>
+    </NamedObject>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>seqsrc_tseq_3</object_id>
+        </NamedObject>
+    </elem>
+
+  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_tseq_3</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./Save_SeqProp/seqprop_P0_m-0.2400_tseq3.10000</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_tseq_3</object_id>
+        </NamedObject>
+    </elem>
+
+    <elem>
+      <Name>SEQSOURCE_FAST</Name>
+      <SmearedProps>true</SmearedProps>
+      <multi_tSinks>4</multi_tSinks>
+      <Frequency>1</Frequency>
+      <Param>
+        <version>2</version>
+        <SeqSource>
+          <version>1</version>
+          <SeqSourceType>WEAK_CURRENT_gAgV_CUR</SeqSourceType>
+          <j_decay>3</j_decay>
+          <t_sink>0</t_sink>
+          <sink_mom>0 0 0</sink_mom>
+        </SeqSource>
+      </Param>
+      <PropSink>
+        <version>5</version>
+        <Sink>
+          <version>2</version>
+          <SinkType>POINT_SINK</SinkType>
+          <j_decay>3</j_decay>
+          <Displacement>
+            <version>1</version>
+            <DisplacementType>NONE</DisplacementType>
+          </Displacement>
+        </Sink>
+      </PropSink>
+      <NamedObject>
+        <prop_ids>
+          <elem>smeared_L_quark_propagator</elem>
+          <elem>smeared_L_quark_propagator</elem>
+        </prop_ids>
+        <seqsource_id>
+          <elem>seqsrc_tseq_4</elem>
+        </seqsource_id>
+        <gauge_id>default_gauge_field</gauge_id>
+      </NamedObject>
+   </elem>
+
+  <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>UNPRECONDITIONED_CLOVER</FermAct>
+          <Mass>-0.2400</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+        </FermionAction>
+        <InvertParam>
+          <invType>CG_INVERTER</invType>
+          <RsdCG>1.0e-5</RsdCG>
+          <MaxCG>1000</MaxCG>
+        </InvertParam>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>seqsrc_tseq_4</source_id>
+      <prop_id>prop_P0_tseq_4</prop_id>
+    </NamedObject>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>seqsrc_tseq_4</object_id>
+        </NamedObject>
+    </elem>
+
+  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_tseq_4</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./Save_SeqProp/seqprop_P0_m-0.2400_tseq4.10000</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_tseq_4</object_id>
+        </NamedObject>
+    </elem>
+
+    <elem>
+      <Name>SEQSOURCE_FAST</Name>
+      <SmearedProps>true</SmearedProps>
+      <multi_tSinks>5</multi_tSinks>
+      <Frequency>1</Frequency>
+      <Param>
+        <version>2</version>
+        <SeqSource>
+          <version>1</version>
+          <SeqSourceType>WEAK_CURRENT_gAgV_CUR</SeqSourceType>
+          <j_decay>3</j_decay>
+          <t_sink>0</t_sink>
+          <sink_mom>0 0 0</sink_mom>
+        </SeqSource>
+      </Param>
+      <PropSink>
+        <version>5</version>
+        <Sink>
+          <version>2</version>
+          <SinkType>POINT_SINK</SinkType>
+          <j_decay>3</j_decay>
+          <Displacement>
+            <version>1</version>
+            <DisplacementType>NONE</DisplacementType>
+          </Displacement>
+        </Sink>
+      </PropSink>
+      <NamedObject>
+        <prop_ids>
+          <elem>smeared_L_quark_propagator</elem>
+          <elem>smeared_L_quark_propagator</elem>
+        </prop_ids>
+        <seqsource_id>
+          <elem>seqsrc_tseq_5</elem>
+        </seqsource_id>
+        <gauge_id>default_gauge_field</gauge_id>
+      </NamedObject>
+   </elem>
+
+  <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>UNPRECONDITIONED_CLOVER</FermAct>
+          <Mass>-0.2400</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+        </FermionAction>
+        <InvertParam>
+          <invType>CG_INVERTER</invType>
+          <RsdCG>1.0e-5</RsdCG>
+          <MaxCG>1000</MaxCG>
+        </InvertParam>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>seqsrc_tseq_5</source_id>
+      <prop_id>prop_P0_tseq_5</prop_id>
+    </NamedObject>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>seqsrc_tseq_5</object_id>
+        </NamedObject>
+    </elem>
+
+  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_tseq_5</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./Save_SeqProp/seqprop_P0_m-0.2400_tseq5.10000</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_tseq_5</object_id>
+        </NamedObject>
+    </elem>
+
+    <elem>
+      <Name>SEQSOURCE_FAST</Name>
+      <SmearedProps>true</SmearedProps>
+      <multi_tSinks>6</multi_tSinks>
+      <Frequency>1</Frequency>
+      <Param>
+        <version>2</version>
+        <SeqSource>
+          <version>1</version>
+          <SeqSourceType>WEAK_CURRENT_gAgV_CUR</SeqSourceType>
+          <j_decay>3</j_decay>
+          <t_sink>0</t_sink>
+          <sink_mom>0 0 0</sink_mom>
+        </SeqSource>
+      </Param>
+      <PropSink>
+        <version>5</version>
+        <Sink>
+          <version>2</version>
+          <SinkType>POINT_SINK</SinkType>
+          <j_decay>3</j_decay>
+          <Displacement>
+            <version>1</version>
+            <DisplacementType>NONE</DisplacementType>
+          </Displacement>
+        </Sink>
+      </PropSink>
+      <NamedObject>
+        <prop_ids>
+          <elem>smeared_L_quark_propagator</elem>
+          <elem>smeared_L_quark_propagator</elem>
+        </prop_ids>
+        <seqsource_id>
+          <elem>seqsrc_tseq_6</elem>
+        </seqsource_id>
+        <gauge_id>default_gauge_field</gauge_id>
+      </NamedObject>
+   </elem>
+
+  <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>UNPRECONDITIONED_CLOVER</FermAct>
+          <Mass>-0.2400</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+        </FermionAction>
+        <InvertParam>
+          <invType>CG_INVERTER</invType>
+          <RsdCG>1.0e-5</RsdCG>
+          <MaxCG>1000</MaxCG>
+        </InvertParam>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>seqsrc_tseq_6</source_id>
+      <prop_id>prop_P0_tseq_6</prop_id>
+    </NamedObject>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>seqsrc_tseq_6</object_id>
+        </NamedObject>
+    </elem>
+
+  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_tseq_6</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./Save_SeqProp/seqprop_P0_m-0.2400_tseq6.10000</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_tseq_6</object_id>
+        </NamedObject>
+    </elem>
+
+    <elem>
+      <Name>SEQSOURCE_FAST</Name>
+      <SmearedProps>true</SmearedProps>
+      <multi_tSinks>7</multi_tSinks>
+      <Frequency>1</Frequency>
+      <Param>
+        <version>2</version>
+        <SeqSource>
+          <version>1</version>
+          <SeqSourceType>WEAK_CURRENT_gAgV_CUR</SeqSourceType>
+          <j_decay>3</j_decay>
+          <t_sink>0</t_sink>
+          <sink_mom>0 0 0</sink_mom>
+        </SeqSource>
+      </Param>
+      <PropSink>
+        <version>5</version>
+        <Sink>
+          <version>2</version>
+          <SinkType>POINT_SINK</SinkType>
+          <j_decay>3</j_decay>
+          <Displacement>
+            <version>1</version>
+            <DisplacementType>NONE</DisplacementType>
+          </Displacement>
+        </Sink>
+      </PropSink>
+      <NamedObject>
+        <prop_ids>
+          <elem>smeared_L_quark_propagator</elem>
+          <elem>smeared_L_quark_propagator</elem>
+        </prop_ids>
+        <seqsource_id>
+          <elem>seqsrc_tseq_7</elem>
+        </seqsource_id>
+        <gauge_id>default_gauge_field</gauge_id>
+      </NamedObject>
+   </elem>
+
+  <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>UNPRECONDITIONED_CLOVER</FermAct>
+          <Mass>-0.2400</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+        </FermionAction>
+        <InvertParam>
+          <invType>CG_INVERTER</invType>
+          <RsdCG>1.0e-5</RsdCG>
+          <MaxCG>1000</MaxCG>
+        </InvertParam>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>seqsrc_tseq_7</source_id>
+      <prop_id>prop_P0_tseq_7</prop_id>
+    </NamedObject>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>seqsrc_tseq_7</object_id>
+        </NamedObject>
+    </elem>
+
+  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_tseq_7</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./Save_SeqProp/seqprop_P0_m-0.2400_tseq7.10000</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_tseq_7</object_id>
+        </NamedObject>
+    </elem>
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>smeared_L_quark_propagator</object_id>
+        </NamedObject>
+    </elem>
+
+
+  </InlineMeasurements>
+    <nrow>24 24 24 72</nrow>
+</Param>
+
+  <RNG>
+    <Seed>
+      <elem>11</elem>
+      <elem>11</elem>
+      <elem>11</elem>
+      <elem>0</elem>
+    </Seed>
+  </RNG>
+
+  <Cfg>
+    <cfg_type>SCIDAC</cfg_type>
+    <cfg_file>../../class4_prop/C24P31/Configurations/CoulombGaugeFixed/beta6.20_mu-0.2770_ms-0.2400_L24x72_cfg_10000_hyp0_gfixed3.scidac</cfg_file>
+    <parallel_io>true</parallel_io>
+  </Cfg>
+
+</chroma>
+
+
+

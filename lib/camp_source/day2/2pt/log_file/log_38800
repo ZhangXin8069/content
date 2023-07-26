@@ -1,0 +1,110 @@
+QDP use OpenMP threading. We have 1 threads
+Affinity reporting not implemented for this architecture
+Initialize done
+Linkage = bool Chroma::MapObjectDiskEnv::registerAll(): registering map obj key colorvec
+0
+InlineMeasurements are: 
+<InlineMeasurements>
+
+    <elem>
+        <annotation>
+            Read the L prop
+        </annotation>
+        <Name>QIO_READ_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+            <object_id>L_quark_propagator</object_id>
+            <object_type>LatticePropagator</object_type>
+        </NamedObject>
+        <File>
+            <file_name>/dssg/home/acct-phyww/phyww/qazhang/training_camp/clqcd/C24P31//Propagators/prop_38800_CoulombWall_t0-n1_P505050_m-0.2770_single</file_name>
+            <parallel_io>true</parallel_io>
+        </File>
+    </elem>
+
+    <elem>
+        <annotation>
+            Read the S prop
+        </annotation>
+        <Name>QIO_READ_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+            <object_id>S_quark_propagator</object_id>
+            <object_type>LatticePropagator</object_type>
+        </NamedObject>
+        <File>
+            <file_name>/dssg/home/acct-phyww/phyww/qazhang/training_camp/clqcd/C24P31//Propagators/prop_38800_CoulombWall_t0-n1_P505050_m-0.2400_single</file_name>
+            <parallel_io>true</parallel_io>
+        </File>
+    </elem>
+
+
+    <elem>
+      <annotation>
+         Compute the measurements you build
+      </annotation>
+      <Name>My_Measurements</Name>
+      <Param>
+        <cfg_serial>38800</cfg_serial>
+        <hadrons>
+          <elem>PION</elem>
+          <elem>KAON</elem>
+          <elem>PROTON</elem>
+        </hadrons>
+        <l_prop>L_quark_propagator</l_prop>
+        <s_prop>S_quark_propagator</s_prop>
+        <file_name>/dssg/home/acct-stu/stu1940/zhangxin/day2/2pt/Data/2pt_38800.dat.iog</file_name>
+       </Param>
+    </elem>
+
+  </InlineMeasurements>
+
+Lattice initialized:
+  problem size = 24 24 24 72
+  layout size = 12 24 24 72
+  logical machine size = 1 1 1 4
+  subgrid size = 24 24 24 18
+  total number of nodes = 4
+  total volume = 995328
+  subgrid volume = 248832
+Initializing QDPDefaultAllocator.
+Finished init of RNG
+Finished lattice layout
+Attempt to read gauge field
+Gauge initialization: cfg_type = SCIDAC
+Parallel IO read
+Reading Double Precision
+DML_partition_in times: read 0.10  send 0.00  total 0.45
+QIO_read_finished
+Gauge field successfully read: time= 0.694666 secs
+There are 3 measurements 
+Doing 3 measurements
+QIO_READ_NAMED_OBJECT: object reader
+Attempt to read object name = L_quark_propagator
+Attempting Parallel IO read
+Single Precision Read
+DML_partition_in times: read 0.09  send 0.00  total 0.77
+QIO_read_finished
+Object successfully read: time= 1.287589 secs
+QIO_READ_NAMED_OBJECT: ran successfully
+QIO_READ_NAMED_OBJECT: object reader
+Attempt to read object name = S_quark_propagator
+Attempting Parallel IO read
+Single Precision Read
+DML_partition_in times: read 0.16  send 0.00  total 0.85
+QIO_read_finished
+Object successfully read: time= 1.238316 secs
+QIO_READ_NAMED_OBJECT: ran successfully
+ BuildingBlocks
+     volume: 24 x 24 x 24 x 72
+Attempt to parse forward propagator
+All propagators successfully parsed
+Calculate hadrons include PION
+Calculate hadrons include KAON
+Calculate hadrons include PROTON
+Total hadron number: 3
+My_Measurements: total time = 2.940529 secs
+My_Measurements: ran successfully
+CHROMA measurements: time= 6.163178 secs
+CHROMA: total time = 8.603442 secs
+CHROMA: ran successfully

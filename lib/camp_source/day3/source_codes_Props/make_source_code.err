@@ -1,0 +1,4 @@
+grid_source.cc: In member function ‘T Chroma::GridQuarkSourceConstEnv::SourceConst<T>::operator()(const QDP::multi1d<QDP::OLattice<QDP::PScalar<QDP::PColorMatrix<QDP::RComplex<float>, 3> > > >&) const [with T = QDP::OLattice<QDP::PSpinMatrix<QDP::PColorMatrix<QDP::RComplex<float>, 3>, 1> >]’:
+grid_source.cc:352:5: warning: no return statement in function returning non-void [-Wreturn-type]
+     }
+     ^

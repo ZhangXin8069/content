@@ -1,0 +1,23 @@
+The external package to use the chroma.
+
+My Makefile is pushed as example, but please don't push your local version
+of the Makefile to the git.
+
+To use it with Huey-Wen's branch, please change the Makefile to enable 
+the -D_PDF_ flag. 
+
+The XML element pion_DA can only be used with Huey-Wen's branch at present
+since it used some features only in that brach.
+
+
+TODO list:
+
+The present grid source can not use most of the contraction element since
+Chroma will check the source type. 
+
+We should have a XML element to read the propagator in the KYU format.
+
+
+
+
+

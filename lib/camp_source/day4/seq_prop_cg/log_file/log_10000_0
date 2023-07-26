@@ -1,0 +1,702 @@
+QDP use OpenMP threading. We have 1 threads
+Affinity reporting not implemented for this architecture
+Initialize done
+Linkage = bool Chroma::MapObjectDiskEnv::registerAll(): registering map obj key colorvec
+0
+InlineMeasurements are: 
+<InlineMeasurements>
+
+    <elem>
+        <annotation>
+            Read the L prop
+        </annotation>
+        <Name>QIO_READ_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+            <object_id>L_quark_propagator</object_id>
+            <object_type>LatticePropagator</object_type>
+        </NamedObject>
+        <File>
+	    <file_name>../../class4_prop/C24P31/Propagators/prop_10000_CoulombWall_t0-n1_P505050_m-0.2400_single</file_name>
+            <parallel_io>true</parallel_io>
+        </File>
+    </elem>
+
+    <elem>
+      <Name>SINK_SMEAR</Name>
+      <Frequency>1</Frequency>
+      <Param>
+        <version>5</version>
+        <Sink>
+          <version>1</version>
+          <SinkType>POINT_SINK</SinkType>
+          <j_decay>3</j_decay>
+        </Sink>
+      </Param>
+      <NamedObject>
+        <gauge_id>default_gauge_field</gauge_id>
+        <prop_id>L_quark_propagator</prop_id>
+        <smeared_prop_id>smeared_L_quark_propagator</smeared_prop_id>
+      </NamedObject>
+    </elem>
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+            <object_id>L_quark_propagator</object_id>
+        </NamedObject>
+    </elem>
+
+    <elem>
+      <Name>SEQSOURCE_FAST</Name>
+      <SmearedProps>true</SmearedProps>
+      <multi_tSinks>3</multi_tSinks>
+      <Frequency>1</Frequency>
+      <Param>
+        <version>2</version>
+        <SeqSource>
+          <version>1</version>
+          <SeqSourceType>WEAK_CURRENT_gAgV_CUR</SeqSourceType>
+          <j_decay>3</j_decay>
+          <t_sink>0</t_sink>
+          <sink_mom>0 0 0</sink_mom>
+        </SeqSource>
+      </Param>
+      <PropSink>
+        <version>5</version>
+        <Sink>
+          <version>2</version>
+          <SinkType>POINT_SINK</SinkType>
+          <j_decay>3</j_decay>
+          <Displacement>
+            <version>1</version>
+            <DisplacementType>NONE</DisplacementType>
+          </Displacement>
+        </Sink>
+      </PropSink>
+      <NamedObject>
+        <prop_ids>
+          <elem>smeared_L_quark_propagator</elem>
+          <elem>smeared_L_quark_propagator</elem>
+        </prop_ids>
+        <seqsource_id>
+          <elem>seqsrc_tseq_3</elem>
+        </seqsource_id>
+        <gauge_id>default_gauge_field</gauge_id>
+      </NamedObject>
+   </elem>
+
+  <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>UNPRECONDITIONED_CLOVER</FermAct>
+          <Mass>-0.2400</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+        </FermionAction>
+        <InvertParam>
+          <invType>CG_INVERTER</invType>
+          <RsdCG>1.0e-5</RsdCG>
+          <MaxCG>1000</MaxCG>
+        </InvertParam>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>seqsrc_tseq_3</source_id>
+      <prop_id>prop_P0_tseq_3</prop_id>
+    </NamedObject>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>seqsrc_tseq_3</object_id>
+        </NamedObject>
+    </elem>
+
+  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_tseq_3</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./Save_SeqProp/seqprop_P0_m-0.2400_tseq3.10000</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_tseq_3</object_id>
+        </NamedObject>
+    </elem>
+
+    <elem>
+      <Name>SEQSOURCE_FAST</Name>
+      <SmearedProps>true</SmearedProps>
+      <multi_tSinks>4</multi_tSinks>
+      <Frequency>1</Frequency>
+      <Param>
+        <version>2</version>
+        <SeqSource>
+          <version>1</version>
+          <SeqSourceType>WEAK_CURRENT_gAgV_CUR</SeqSourceType>
+          <j_decay>3</j_decay>
+          <t_sink>0</t_sink>
+          <sink_mom>0 0 0</sink_mom>
+        </SeqSource>
+      </Param>
+      <PropSink>
+        <version>5</version>
+        <Sink>
+          <version>2</version>
+          <SinkType>POINT_SINK</SinkType>
+          <j_decay>3</j_decay>
+          <Displacement>
+            <version>1</version>
+            <DisplacementType>NONE</DisplacementType>
+          </Displacement>
+        </Sink>
+      </PropSink>
+      <NamedObject>
+        <prop_ids>
+          <elem>smeared_L_quark_propagator</elem>
+          <elem>smeared_L_quark_propagator</elem>
+        </prop_ids>
+        <seqsource_id>
+          <elem>seqsrc_tseq_4</elem>
+        </seqsource_id>
+        <gauge_id>default_gauge_field</gauge_id>
+      </NamedObject>
+   </elem>
+
+  <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>UNPRECONDITIONED_CLOVER</FermAct>
+          <Mass>-0.2400</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+        </FermionAction>
+        <InvertParam>
+          <invType>CG_INVERTER</invType>
+          <RsdCG>1.0e-5</RsdCG>
+          <MaxCG>1000</MaxCG>
+        </InvertParam>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>seqsrc_tseq_4</source_id>
+      <prop_id>prop_P0_tseq_4</prop_id>
+    </NamedObject>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>seqsrc_tseq_4</object_id>
+        </NamedObject>
+    </elem>
+
+  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_tseq_4</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./Save_SeqProp/seqprop_P0_m-0.2400_tseq4.10000</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_tseq_4</object_id>
+        </NamedObject>
+    </elem>
+
+    <elem>
+      <Name>SEQSOURCE_FAST</Name>
+      <SmearedProps>true</SmearedProps>
+      <multi_tSinks>5</multi_tSinks>
+      <Frequency>1</Frequency>
+      <Param>
+        <version>2</version>
+        <SeqSource>
+          <version>1</version>
+          <SeqSourceType>WEAK_CURRENT_gAgV_CUR</SeqSourceType>
+          <j_decay>3</j_decay>
+          <t_sink>0</t_sink>
+          <sink_mom>0 0 0</sink_mom>
+        </SeqSource>
+      </Param>
+      <PropSink>
+        <version>5</version>
+        <Sink>
+          <version>2</version>
+          <SinkType>POINT_SINK</SinkType>
+          <j_decay>3</j_decay>
+          <Displacement>
+            <version>1</version>
+            <DisplacementType>NONE</DisplacementType>
+          </Displacement>
+        </Sink>
+      </PropSink>
+      <NamedObject>
+        <prop_ids>
+          <elem>smeared_L_quark_propagator</elem>
+          <elem>smeared_L_quark_propagator</elem>
+        </prop_ids>
+        <seqsource_id>
+          <elem>seqsrc_tseq_5</elem>
+        </seqsource_id>
+        <gauge_id>default_gauge_field</gauge_id>
+      </NamedObject>
+   </elem>
+
+  <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>UNPRECONDITIONED_CLOVER</FermAct>
+          <Mass>-0.2400</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+        </FermionAction>
+        <InvertParam>
+          <invType>CG_INVERTER</invType>
+          <RsdCG>1.0e-5</RsdCG>
+          <MaxCG>1000</MaxCG>
+        </InvertParam>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>seqsrc_tseq_5</source_id>
+      <prop_id>prop_P0_tseq_5</prop_id>
+    </NamedObject>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>seqsrc_tseq_5</object_id>
+        </NamedObject>
+    </elem>
+
+  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_tseq_5</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./Save_SeqProp/seqprop_P0_m-0.2400_tseq5.10000</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_tseq_5</object_id>
+        </NamedObject>
+    </elem>
+
+    <elem>
+      <Name>SEQSOURCE_FAST</Name>
+      <SmearedProps>true</SmearedProps>
+      <multi_tSinks>6</multi_tSinks>
+      <Frequency>1</Frequency>
+      <Param>
+        <version>2</version>
+        <SeqSource>
+          <version>1</version>
+          <SeqSourceType>WEAK_CURRENT_gAgV_CUR</SeqSourceType>
+          <j_decay>3</j_decay>
+          <t_sink>0</t_sink>
+          <sink_mom>0 0 0</sink_mom>
+        </SeqSource>
+      </Param>
+      <PropSink>
+        <version>5</version>
+        <Sink>
+          <version>2</version>
+          <SinkType>POINT_SINK</SinkType>
+          <j_decay>3</j_decay>
+          <Displacement>
+            <version>1</version>
+            <DisplacementType>NONE</DisplacementType>
+          </Displacement>
+        </Sink>
+      </PropSink>
+      <NamedObject>
+        <prop_ids>
+          <elem>smeared_L_quark_propagator</elem>
+          <elem>smeared_L_quark_propagator</elem>
+        </prop_ids>
+        <seqsource_id>
+          <elem>seqsrc_tseq_6</elem>
+        </seqsource_id>
+        <gauge_id>default_gauge_field</gauge_id>
+      </NamedObject>
+   </elem>
+
+  <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>UNPRECONDITIONED_CLOVER</FermAct>
+          <Mass>-0.2400</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+        </FermionAction>
+        <InvertParam>
+          <invType>CG_INVERTER</invType>
+          <RsdCG>1.0e-5</RsdCG>
+          <MaxCG>1000</MaxCG>
+        </InvertParam>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>seqsrc_tseq_6</source_id>
+      <prop_id>prop_P0_tseq_6</prop_id>
+    </NamedObject>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>seqsrc_tseq_6</object_id>
+        </NamedObject>
+    </elem>
+
+  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_tseq_6</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./Save_SeqProp/seqprop_P0_m-0.2400_tseq6.10000</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_tseq_6</object_id>
+        </NamedObject>
+    </elem>
+
+    <elem>
+      <Name>SEQSOURCE_FAST</Name>
+      <SmearedProps>true</SmearedProps>
+      <multi_tSinks>7</multi_tSinks>
+      <Frequency>1</Frequency>
+      <Param>
+        <version>2</version>
+        <SeqSource>
+          <version>1</version>
+          <SeqSourceType>WEAK_CURRENT_gAgV_CUR</SeqSourceType>
+          <j_decay>3</j_decay>
+          <t_sink>0</t_sink>
+          <sink_mom>0 0 0</sink_mom>
+        </SeqSource>
+      </Param>
+      <PropSink>
+        <version>5</version>
+        <Sink>
+          <version>2</version>
+          <SinkType>POINT_SINK</SinkType>
+          <j_decay>3</j_decay>
+          <Displacement>
+            <version>1</version>
+            <DisplacementType>NONE</DisplacementType>
+          </Displacement>
+        </Sink>
+      </PropSink>
+      <NamedObject>
+        <prop_ids>
+          <elem>smeared_L_quark_propagator</elem>
+          <elem>smeared_L_quark_propagator</elem>
+        </prop_ids>
+        <seqsource_id>
+          <elem>seqsrc_tseq_7</elem>
+        </seqsource_id>
+        <gauge_id>default_gauge_field</gauge_id>
+      </NamedObject>
+   </elem>
+
+  <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>UNPRECONDITIONED_CLOVER</FermAct>
+          <Mass>-0.2400</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+        </FermionAction>
+        <InvertParam>
+          <invType>CG_INVERTER</invType>
+          <RsdCG>1.0e-5</RsdCG>
+          <MaxCG>1000</MaxCG>
+        </InvertParam>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>seqsrc_tseq_7</source_id>
+      <prop_id>prop_P0_tseq_7</prop_id>
+    </NamedObject>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>seqsrc_tseq_7</object_id>
+        </NamedObject>
+    </elem>
+
+  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_tseq_7</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./Save_SeqProp/seqprop_P0_m-0.2400_tseq7.10000</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_tseq_7</object_id>
+        </NamedObject>
+    </elem>
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>smeared_L_quark_propagator</object_id>
+        </NamedObject>
+    </elem>
+
+
+  </InlineMeasurements>
+
+Lattice initialized:
+  problem size = 24 24 24 72
+  layout size = 12 24 24 72
+  logical machine size = 1 4 2 8
+  subgrid size = 24 6 12 9
+  total number of nodes = 64
+  total volume = 995328
+  subgrid volume = 15552
+Initializing QDPDefaultAllocator.
+Finished init of RNG
+Finished lattice layout
+Attempt to read gauge field
+Gauge initialization: cfg_type = SCIDAC
+Parallel IO read
+QMP m12,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m14,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m15,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m16,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m17,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m18,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m19,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m20,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m21,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m22,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m23,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m24,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m25,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m26,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m28,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m30,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m31,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m32,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m34,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m36,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m38,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QIO_create_reader(0): cannot open ../../class4_prop/C24P31/Configurations/CoulombGaugeFixed/beta6.20_mu-0.2770_ms-0.2400_L24x72_cfg_10000_hyp0_gfixed3.scidac as SINGLEFILE; trying PARTFILE
+QIO_create_reader(0): cannot open ../../class4_prop/C24P31/Configurations/CoulombGaugeFixed/beta6.20_mu-0.2770_ms-0.2400_L24x72_cfg_10000_hyp0_gfixed3.scidac.vol0000 as PARTFILE; trying PARTFILE_DIR
+QIO_create_reader(0): cannot open ../../class4_prop/C24P31/Configurations/CoulombGaugeFixed/vol0000/beta6.20_mu-0.2770_ms-0.2400_L24x72_cfg_10000_hyp0_gfixed3.scidac as PARTFILE_DIR; QIO_create_reader FAILED
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 21 in communicator MPI_COMM_WORLD
+with errorcode 1.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+QMP m40,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m41,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m42,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m44,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m46,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m47,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m48,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m49,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m50,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m51,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m52,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m53,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m54,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m56,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m58,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m60,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m61,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m62,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QDPFileReader: failed to open file ../../class4_prop/C24P31/Configurations/CoulombGaugeFixed/beta6.20_mu-0.2770_ms-0.2400_L24x72_cfg_10000_hyp0_gfixed3.scidac
+QMP m0,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m1,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m2,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m3,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m4,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m5,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m7,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m59,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m63,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m27,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m29,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m33,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m35,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m37,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m39,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m43,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m45,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m55,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m6,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m13,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m57,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m10,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m11,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m8,n64@node307.pi.sjtu.edu.cn error: abort: 1
+QMP m9,n64@node307.pi.sjtu.edu.cn error: abort: 1
+[node307.pi.sjtu.edu.cn:88787] 56 more processes have sent help message help-mpi-api.txt / mpi-abort
+[node307.pi.sjtu.edu.cn:88787] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages

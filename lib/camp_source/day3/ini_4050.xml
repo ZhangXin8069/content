@@ -1,0 +1,322 @@
+<?xml version="1.0"?>
+<chroma>
+<Param> 
+  <InlineMeasurements>
+
+  <elem>
+    <Name>MAKE_SOURCE</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>6</version>
+      <Source>
+          <version>1</version>
+          <SourceType>MOM_GRID_SOURCE</SourceType>
+          <j_decay>3</j_decay>
+          <t_srce>0 0 0 0</t_srce>
+          <ini_mom>0 0 0 0</ini_mom>
+          <grid>1 1 1 72</grid>
+          <SmearingParam>
+            <wvf_kind>GAUGE_INV_GAUSSIAN</wvf_kind>
+            <wvf_param>0</wvf_param>
+            <wvfIntPar>0</wvfIntPar>
+            <no_smear_dir>3</no_smear_dir>
+            <Verbose>false</Verbose>
+            <checkP>false</checkP>
+          </SmearingParam>
+      </Source>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>src_P0_t0</source_id>
+    </NamedObject>
+  </elem>
+  
+  <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>UNPRECONDITIONED_CLOVER</FermAct>
+          <Mass>-0.2815</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+        </FermionAction>
+         <InvertParam>
+          <invType>QOP_CLOVER_MULTIGRID_INVERTER</invType>
+          <Mass>-0.2815</Mass>
+          <Clover>1.160920226</Clover>
+          <MaxIter>500</MaxIter>
+          <Residual>1e-05</Residual>
+          <ExternalSubspace>true</ExternalSubspace>
+          <SubspaceId>cpu_multigrid_m-0.0785</SubspaceId>
+          <RsdToleranceFactor>1.5</RsdToleranceFactor>
+          <Levels>2</Levels>
+          <Blocking>
+            <elem>3 3 3 3</elem>
+            <elem>2 2 2 2</elem>
+          </Blocking>
+          <NumNullVecs>24 36</NumNullVecs>
+          <NumExtraVecs>0 0</NumExtraVecs>
+          <NullResidual>0.4 0.4</NullResidual>
+          <NullMaxIter>100 100</NullMaxIter>
+          <NullConvergence>0.1 0.1</NullConvergence>
+          <Underrelax>1.0 1.0</Underrelax>
+          <NumPreHits>0 0</NumPreHits>
+          <NumPostHits>4 4</NumPostHits>
+          <CoarseMaxIter>12 12</CoarseMaxIter>
+          <CoarseResidual>0.1 0.1</CoarseResidual>
+        </InvertParam>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>src_P0_t0</source_id>
+      <prop_id>prop_P0_t0</prop_id>
+    </NamedObject>
+  </elem>
+
+    
+  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_t0</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./prop_P0_Lprop_MG.4050</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_t0</object_id>
+        </NamedObject>
+    </elem>
+
+      <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>UNPRECONDITIONED_CLOVER</FermAct>
+          <Mass>-0.2815</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+        </FermionAction>
+        <InvertParam>
+          <invType>CG_INVERTER</invType>
+          <RsdCG>1.0e-5</RsdCG>
+          <MaxCG>1000</MaxCG>
+        </InvertParam>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>src_P0_t0</source_id>
+      <prop_id>prop_P0_t0</prop_id>
+    </NamedObject>
+  </elem>
+
+	  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_t0</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./prop_P0_Lprop_CG.4050</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_t0</object_id>
+        </NamedObject>
+    </elem>
+
+  <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>CLOVER</FermAct>
+          <Mass>-0.2321</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+        </FermionAction>
+        <InvertParam>
+          <invType>CG_INVERTER</invType>
+          <RsdCG>1.0e-12</RsdCG>
+          <MaxCG>1000</MaxCG>
+        </InvertParam>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>src_P0_t0</source_id>
+      <prop_id>prop_P0_t0</prop_id>
+    </NamedObject>
+  </elem>
+
+  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_t0</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./prop_P0_Sprop.4050</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_t0</object_id>
+        </NamedObject>
+    </elem>
+    
+  <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>CLOVER</FermAct>
+          <Mass>0.4763</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+          </FermionAction>
+          <InvertParam>
+          <invType>CG_INVERTER</invType>
+          <RsdCG>1.0e-12</RsdCG>
+          <MaxCG>1000</MaxCG>
+          </InvertParam> 		
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>src_P0_t0</source_id>
+      <prop_id>prop_P0_t0</prop_id>
+    </NamedObject>
+  </elem>
+
+  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_t0</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./prop_P0_Cprop.4050</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_t0</object_id>
+        </NamedObject>
+    </elem>
+    
+
+  </InlineMeasurements>
+    <nrow>24 24 24 72</nrow>
+</Param>
+
+  <RNG>
+    <Seed>
+      <elem>11</elem>
+      <elem>11</elem>
+      <elem>11</elem>
+      <elem>0</elem>
+    </Seed>
+  </RNG>
+
+
+  <Cfg>
+    <cfg_type>SCIDAC</cfg_type>
+    <cfg_file>/dssg/home/acct-phyww/phyww/qazhang/training_camp/my_codes/Save_Essential/Save_cfgs/s1.0_cfg_4050.lime.4050.hyp0.gfixed3</cfg_file>
+    <parallel_io>true</parallel_io>
+  </Cfg>
+
+</chroma>

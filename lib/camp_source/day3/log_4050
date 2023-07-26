@@ -1,0 +1,1395 @@
+QDP use OpenMP threading. We have 1 threads
+Affinity reporting not implemented for this architecture
+Initialize done
+Linkage = bool Chroma::MapObjectDiskEnv::registerAll(): registering map obj key colorvec
+0
+InlineMeasurements are: 
+<InlineMeasurements>
+
+  <elem>
+    <Name>MAKE_SOURCE</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>6</version>
+      <Source>
+          <version>1</version>
+          <SourceType>MOM_GRID_SOURCE</SourceType>
+          <j_decay>3</j_decay>
+          <t_srce>0 0 0 0</t_srce>
+          <ini_mom>0 0 0 0</ini_mom>
+          <grid>1 1 1 72</grid>
+          <SmearingParam>
+            <wvf_kind>GAUGE_INV_GAUSSIAN</wvf_kind>
+            <wvf_param>0</wvf_param>
+            <wvfIntPar>0</wvfIntPar>
+            <no_smear_dir>3</no_smear_dir>
+            <Verbose>false</Verbose>
+            <checkP>false</checkP>
+          </SmearingParam>
+      </Source>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>src_P0_t0</source_id>
+    </NamedObject>
+  </elem>
+  
+  <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>UNPRECONDITIONED_CLOVER</FermAct>
+          <Mass>-0.2815</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+        </FermionAction>
+         <InvertParam>
+          <invType>QOP_CLOVER_MULTIGRID_INVERTER</invType>
+          <Mass>-0.2815</Mass>
+          <Clover>1.160920226</Clover>
+          <MaxIter>500</MaxIter>
+          <Residual>1e-05</Residual>
+          <ExternalSubspace>true</ExternalSubspace>
+          <SubspaceId>cpu_multigrid_m-0.0785</SubspaceId>
+          <RsdToleranceFactor>1.5</RsdToleranceFactor>
+          <Levels>2</Levels>
+          <Blocking>
+            <elem>3 3 3 3</elem>
+            <elem>2 2 2 2</elem>
+          </Blocking>
+          <NumNullVecs>24 36</NumNullVecs>
+          <NumExtraVecs>0 0</NumExtraVecs>
+          <NullResidual>0.4 0.4</NullResidual>
+          <NullMaxIter>100 100</NullMaxIter>
+          <NullConvergence>0.1 0.1</NullConvergence>
+          <Underrelax>1.0 1.0</Underrelax>
+          <NumPreHits>0 0</NumPreHits>
+          <NumPostHits>4 4</NumPostHits>
+          <CoarseMaxIter>12 12</CoarseMaxIter>
+          <CoarseResidual>0.1 0.1</CoarseResidual>
+        </InvertParam>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>src_P0_t0</source_id>
+      <prop_id>prop_P0_t0</prop_id>
+    </NamedObject>
+  </elem>
+
+    
+  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_t0</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./prop_P0_Lprop_MG.4050</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_t0</object_id>
+        </NamedObject>
+    </elem>
+
+      <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>UNPRECONDITIONED_CLOVER</FermAct>
+          <Mass>-0.2815</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+        </FermionAction>
+        <InvertParam>
+          <invType>CG_INVERTER</invType>
+          <RsdCG>1.0e-5</RsdCG>
+          <MaxCG>1000</MaxCG>
+        </InvertParam>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>src_P0_t0</source_id>
+      <prop_id>prop_P0_t0</prop_id>
+    </NamedObject>
+  </elem>
+
+	  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_t0</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./prop_P0_Lprop_CG.4050</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_t0</object_id>
+        </NamedObject>
+    </elem>
+
+  <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>CLOVER</FermAct>
+          <Mass>-0.2321</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+        </FermionAction>
+        <InvertParam>
+          <invType>CG_INVERTER</invType>
+          <RsdCG>1.0e-12</RsdCG>
+          <MaxCG>1000</MaxCG>
+        </InvertParam>
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>src_P0_t0</source_id>
+      <prop_id>prop_P0_t0</prop_id>
+    </NamedObject>
+  </elem>
+
+  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_t0</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./prop_P0_Sprop.4050</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_t0</object_id>
+        </NamedObject>
+    </elem>
+    
+  <elem>
+    <Name>PROPAGATOR</Name>
+    <Frequency>1</Frequency>
+    <Param>
+      <version>10</version>
+      <quarkSpinType>FULL</quarkSpinType>
+      <obsvP>true</obsvP>
+      <numRetries>1</numRetries>
+        <FermionAction>
+          <FermAct>CLOVER</FermAct>
+          <Mass>0.4763</Mass>
+          <clovCoeff>1.160920226</clovCoeff>
+          <FermState>
+              <Name>STOUT_FERM_STATE</Name>
+              <rho>0.125</rho>
+              <n_smear>1</n_smear>
+              <orthog_dir>-1</orthog_dir>
+              <FermionBC>
+                <FermBC>SIMPLE_FERMBC</FermBC>
+                <boundary>1 1 1 -1</boundary>
+              </FermionBC>
+            </FermState>
+          </FermionAction>
+          <InvertParam>
+          <invType>CG_INVERTER</invType>
+          <RsdCG>1.0e-12</RsdCG>
+          <MaxCG>1000</MaxCG>
+          </InvertParam> 		
+    </Param>
+    <NamedObject>
+      <gauge_id>default_gauge_field</gauge_id>
+      <source_id>src_P0_t0</source_id>
+      <prop_id>prop_P0_t0</prop_id>
+    </NamedObject>
+  </elem>
+
+  <elem>
+    <annotation>
+      Write the named object
+    </annotation>
+    <Name>QIO_WRITE_NAMED_OBJECT</Name>
+    <Frequency>1</Frequency>
+    <NamedObject>
+      <object_id>prop_P0_t0</object_id>
+      <object_type>LatticePropagator</object_type>
+    </NamedObject>
+    <File>
+      <file_name>./prop_P0_Cprop.4050</file_name>
+      <file_volfmt>SINGLEFILE</file_volfmt>
+      <parallel_io>true</parallel_io>
+    </File>
+  </elem>
+
+    <elem>
+        <Name>ERASE_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+        <object_id>prop_P0_t0</object_id>
+        </NamedObject>
+    </elem>
+    
+
+  </InlineMeasurements>
+
+Lattice initialized:
+  problem size = 24 24 24 72
+  layout size = 12 24 24 72
+  logical machine size = 1 4 4 4
+  subgrid size = 24 6 6 18
+  total number of nodes = 64
+  total volume = 995328
+  subgrid volume = 15552
+Initializing QDPDefaultAllocator.
+Finished init of RNG
+Finished lattice layout
+Attempt to read gauge field
+Gauge initialization: cfg_type = SCIDAC
+Parallel IO read
+Single Precision Read
+DML_partition_in times: read 0.21  send 0.00  total 0.22
+QIO_read_finished
+Gauge field successfully read: time= 0.420914 secs
+There are 13 measurements 
+Doing 13 measurements
+MAKE_SOURCE: propagator source constructor
+Source = MOM_GRID_SOURCE
+Shell source
+Link smearing type = NONE
+Quark smearing type = GAUGE_INV_GAUSSIAN
+Displacement type = SIMPLE_DISPLACEMENT
+Offsets: 1 , 1 , 1 , 72
+Norm2 of the source is 165888
+Attempt to update source
+Source successfully update
+MAKE_SOURCE: total time = 0.417711 secs
+MAKE_SOURCE: ran successfully
+PROPAGATOR: propagator calculation
+Snarf the source from a named buffer
+Source successfully read and parsed
+FermAct = UNPRECONDITIONED_CLOVER
+Try the various factories
+u0 is 1
+Suitable factory found: compute the quark prop
+Calling quarkProp
+In quarkProp()
+Plaquette from State: 
+  w_plaq = 0.819617828382956
+  s_plaq = 0.819703417670751
+  t_plaq = 0.819532239095161
+  link trace =  0.683735640315889
+ndim = 4
+numsites = 15552
+len = 24 24 24 72
+nsquares = 1 4 4 4
+QDP: stack initialization time = 0.067382 secs
+QDP: Loading gauge field from Chroma
+QDP:   Average plaquette = 0.819618
+QDP:   Average spatial plaquette = 0.819703
+QDP:   Average temporal plaquette = 0.819532
+QDP: load gauge field time = 0.128462 secs
+QDP: Creating Wilson-clover Dirac operator
+QDP: Dirac-op creation time = 0.235636 secs
+Creating qprop took 0.741589sec 
+Entering quarkProp4
+LinOpSysSolverQOPMG::getSubspace() 
+Using External Subspace but object ID: cpu_multigrid_m-0.0785 is not present in the NamedObject store.
+Creating a new one
+QDP: Creating multigrid structure
+init_level 0
+init_level 1
+QDP:   Creating 1st multigrid level with size 8 8 8 24
+QDP:   Creating 2nd multigrid level with size 4 4 4 12
+QDP:   Solving null vectors for multigrid
+creating MG level 0
+creating lattice: 8 8 8 24
+ndim = 4
+numsites = 192
+len = 8 8 8 24
+nsquares = 1 4 4 4
+
+creating block
+local = 1
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+creating args
+creating null vecs
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0x1047890 0x1047890
+0   2   6      0.328294    0.824814  
+1   4   245    0.00250924  0.0058381   0.0274037 
+2   2   200    0.00290128  0.00440449
+3   2   200    0.00397115  0.00718734
+4   2   200    0.00425137  0.00603601
+5   2   198    0.00362217  0.00535101
+6   2   200    0.00435755  0.00531277
+7   2   200    0.00505932  0.00586105
+8   2   200    0.00398055  0.00680665
+9   2   200    0.00422661  0.00577689
+10  2   200    0.00455933  0.00671175
+11  2   200    0.00464981  0.00675431
+12  2   173    0.0041434   0.0083296 
+13  2   200    0.0044795   0.00985373
+14  2   200    0.0054247   0.00697493
+15  2   193    0.00501271  0.00711081
+16  2   200    0.00482026  0.0067944 
+17  2   198    0.00495168  0.00973278
+18  2   200    0.00483699  0.0102596 
+19  2   200    0.00566591  0.00733411
+20  2   200    0.0045454   0.00745435
+21  2   200    0.00644886  0.0101721 
+22  2   200    0.00460827  0.00773201
+23  2   200    0.00504808  0.00713008
+setup its = 4613
+0    1           0.107777    0.328294  
+1    1           6.29631e-06  0.00250924
+2    1           8.4174e-06  0.00290128
+3    1           1.577e-05   0.00397115
+4    1           1.80742e-05  0.00425137
+5    1           1.31201e-05  0.00362217
+6    1           1.89883e-05  0.00435755
+7    1           2.55967e-05  0.00505932
+8    1           1.58448e-05  0.00398055
+9    1           1.78642e-05  0.00422661
+10   1           2.07875e-05  0.00455933
+11   1           2.16208e-05  0.00464981
+12   1           1.71678e-05  0.0041434 
+13   1           2.00659e-05  0.0044795 
+14   1           2.94274e-05  0.0054247 
+15   1           2.51272e-05  0.00501271
+16   1           2.32349e-05  0.00482026
+17   1           2.45191e-05  0.00495168
+18   1           2.33964e-05  0.00483699
+19   1           3.21025e-05  0.00566591
+20   1           2.06607e-05  0.0045454 
+21   1           4.15878e-05  0.00644886
+22   1           2.12362e-05  0.00460827
+23   1           2.54831e-05  0.00504808
+0    1           0.107777    0.328294  
+1    1           3.81317e-05  0.00617509
+2    1           2.51956e-05  0.00501952
+3    1           2.13338e-05  0.00461885
+4    1           2.72831e-05  0.00522332
+5    1           3.31894e-05  0.00576103
+6    1           0.000137844  0.0117407 
+7    1           9.86602e-05  0.00993279
+8    1           8.4283e-05  0.00918058
+9    1           9.14084e-05  0.00956077
+10   1           0.000276616  0.0166318 
+11   1           0.000240808  0.015518  
+12   1           0.000291963  0.0170869 
+13   1           0.00018497  0.0136004 
+14   1           0.000144768  0.012032  
+15   1           0.000332458  0.0182334 
+16   1           0.000308498  0.0175641 
+17   1           0.000212641  0.0145822 
+18   1           0.000374589  0.0193543 
+19   1           0.000287991  0.0169703 
+20   1           0.000389445  0.0197344 
+21   1           0.000607409  0.0246457 
+22   1           0.000388271  0.0197046 
+23   1           0.000433605  0.0208232 
+0    24576       2891.35     0.343     
+1    24576       1298.91     0.229897  
+2    24576       2541.46     0.321578  
+3    24576       3541.79     0.379626  
+4    24576       4371.78     0.421768  
+5    24576       5045.26     0.453092  
+6    24576       5713.19     0.482152  
+7    24576       6302.65     0.506414  
+8    24576       6832.88     0.527286  
+9    24576       7274.17     0.544047  
+10   24576       7736.45     0.561068  
+11   24576       8172.03     0.576646  
+12   24576       8569.12     0.59049   
+13   24576       8957.96     0.603739  
+14   24576       9290.66     0.614848  
+15   24576       9650.89     0.626655  
+16   24576       10020.7     0.638548  
+17   24576       10338.4     0.648592  
+18   24576       10694.2     0.659658  
+19   24576       11039       0.670207  
+20   24576       11486.4     0.683654  
+21   24576       11713.1     0.690368  
+22   24576       12175.7     0.703869  
+23   24576       12430.5     0.711195  
+get_nullvecs: 139.946 secs
+vcomp 0  ( 589475 589475 )  5.73099e-07 / 2.3579e+06 = 2.43055e-13
+vcomp 1  ( 589105 589105 )  5.81032e-07 / 2.35642e+06 = 2.46574e-13
+vcomp 0  ( 589475 589475 )  5.81736e-07 / 2.3579e+06 = 2.46718e-13
+vcomp 1  ( 589105 589105 )  5.8968e-07 / 2.35642e+06 = 2.50244e-13
+
+creating true coarse operator
+ shift  0 :  1  0  0  0
+ shift  1 :  0  1  0  0
+ shift  2 :  0  0  1  0
+ shift  3 :  0  0  0  1
+ shift  4 : -1  0  0  0
+ shift  5 :  0 -1  0  0
+ shift  6 :  0  0 -1  0
+ shift  7 :  0  0  0 -1
+ shift  8 :  0  0  0  0
+16: 0 5 10 15
+vcomp 0  ( 0.240827 0.240827 )  0 / 0.963308 = 0
+vcomp 1  ( 0.0216436 0.0216436 )  0 / 0.0865744 = 0
+vcomp 0  ( 1 1 )  3.35162e-14 / 4 = 8.37905e-15
+vcomp 1  ( 0 2.58571e-15 )  2.58571e-15 / 2.58571e-15 = 1
+vcomp 0  ( 1.16247 1.16247 )  6.78825e-14 / 4.64986 = 1.45988e-14
+vcomp 1  ( 0.123416 0.123416 )  6.04909e-15 / 0.493665 = 1.22534e-14
+vcomp 0  ( 0.219912 0.219912 )  1.91201e-16 / 0.879647 = 2.17362e-16
+vcomp 1  ( 0.0128546 0.0128546 )  2.34527e-16 / 0.0514183 = 4.56115e-15
+QOP_F_mgCloneOp: 46.8597 secs
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+creating MG level 1
+creating lattice: 4 4 4 12
+ndim = 4
+numsites = 12
+len = 4 4 4 12
+nsquares = 1 4 4 4
+
+creating block
+local = 1
+creating args
+creating null vecs
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0x105ce20 0x1047890
+0   2   3      0.379275    0.837193  
+1   4   150    0.00245007  0.00360682  0.0167783 
+2   2   70     0.00662497  0.00835255
+3   2   84     0.00651478  0.00940696
+4   2   77     0.00732823  0.00887357
+5   2   71     0.00870145  0.00933532
+6   2   73     0.00920593  0.0099732 
+7   2   89     0.00754733  0.00858889
+8   2   91     0.00948106  0.0105139 
+9   2   81     0.00823467  0.0093886 
+10  2   84     0.00834225  0.0116763 
+11  2   77     0.0106653   0.0130714 
+12  2   85     0.0112009   0.0129344 
+13  2   83     0.0114349   0.0135716 
+14  2   73     0.00953592  0.0135466 
+15  2   59     0.0101491   0.0133488 
+16  2   70     0.0113486   0.0117576 
+17  2   80     0.0117301   0.013327  
+18  2   61     0.0133639   0.0158327 
+19  2   89     0.0129598   0.0148733 
+20  2   73     0.00983114  0.0115758 
+21  2   66     0.0115176   0.0138404 
+22  2   59     0.0118295   0.014737  
+23  2   73     0.0108504   0.0149752 
+24  2   61     0.0137558   0.0156962 
+25  2   69     0.0138036   0.0148628 
+26  2   68     0.0140775   0.0189586 
+27  2   63     0.0143625   0.0165169 
+28  2   58     0.0158096   0.0158909 
+29  2   60     0.0140358   0.0172006 
+30  2   58     0.0151635   0.0160001 
+31  2   58     0.0144683   0.0147275 
+32  2   62     0.0142193   0.0139908 
+33  2   62     0.016625    0.0170168 
+34  2   58     0.0157798   0.0171616 
+35  2   59     0.0156137   0.0160116 
+setup its = 2557
+0    1           0.14385     0.379275  
+1    1           6.00285e-06  0.00245007
+2    1           4.38902e-05  0.00662497
+3    1           4.24424e-05  0.00651478
+4    1           5.3703e-05  0.00732823
+5    1           7.57153e-05  0.00870145
+6    1           8.47492e-05  0.00920593
+7    1           5.69622e-05  0.00754733
+8    1           8.98905e-05  0.00948106
+9    1           6.78099e-05  0.00823468
+10   1           6.95931e-05  0.00834225
+11   1           0.000113749  0.0106653 
+12   1           0.00012546  0.0112009 
+13   1           0.000130757  0.0114349 
+14   1           9.09337e-05  0.00953592
+15   1           0.000103004  0.0101491 
+16   1           0.000128791  0.0113486 
+17   1           0.000137596  0.0117301 
+18   1           0.000178592  0.0133638 
+19   1           0.000167956  0.0129598 
+20   1           9.66513e-05  0.00983114
+21   1           0.000132656  0.0115176 
+22   1           0.000139937  0.0118295 
+23   1           0.000117732  0.0108504 
+24   1           0.000189222  0.0137558 
+25   1           0.000190539  0.0138036 
+26   1           0.000198177  0.0140775 
+27   1           0.00020628  0.0143625 
+28   1           0.000249944  0.0158096 
+29   1           0.000197004  0.0140358 
+30   1           0.000229931  0.0151635 
+31   1           0.000209331  0.0144683 
+32   1           0.00020219  0.0142193 
+33   1           0.00027639  0.016625  
+34   1           0.000249001  0.0157798 
+35   1           0.000243789  0.0156137 
+0    1           0.14385     0.379275  
+1    1           3.52342e-05  0.00593584
+2    1           4.84864e-05  0.00696322
+3    1           7.32147e-05  0.00855656
+4    1           0.000171429  0.0130931 
+5    1           0.000704742  0.026547  
+6    1           0.00171197  0.041376  
+7    1           0.00138042  0.037154  
+8    1           0.00245494  0.0495473 
+9    1           0.00086412  0.0293959 
+10   1           0.00225441  0.0474806 
+11   1           0.00289866  0.0538392 
+12   1           0.00105067  0.0324141 
+13   1           0.00157946  0.0397424 
+14   1           0.00150695  0.0388195 
+15   1           0.00255009  0.0504985 
+16   1           0.00157529  0.03969   
+17   1           0.00192844  0.0439141 
+18   1           0.00253331  0.050332  
+19   1           0.00276257  0.0525602 
+20   1           0.00203842  0.0451489 
+21   1           0.00167     0.0408657 
+22   1           0.00486049  0.0697172 
+23   1           0.0055226   0.0743142 
+24   1           0.00673675  0.0820777 
+25   1           0.00820288  0.0905697 
+26   1           0.018117    0.134599  
+27   1           0.0161216   0.126971  
+28   1           0.014257    0.119403  
+29   1           0.0198577   0.140918  
+30   1           0.0368753   0.19203   
+31   1           0.0345795   0.185956  
+32   1           0.0157592   0.125536  
+33   1           0.0253263   0.159143  
+34   1           0.0430979   0.2076    
+35   1           0.0189025   0.137487  
+0    1536        234.013     0.390324  
+1    1536        100.654     0.255988  
+2    1536        200.478     0.361275  
+3    1536        286.843     0.432142  
+4    1536        361.809     0.485338  
+5    1536        404.94      0.513452  
+6    1536        451.769     0.542329  
+7    1536        488.669     0.564043  
+8    1536        523.77      0.583948  
+9    1536        568.979     0.608629  
+10   1536        589.833     0.619682  
+11   1536        628.214     0.639526  
+12   1536        667.462     0.659201  
+13   1536        692.064     0.67124   
+14   1536        720.184     0.68474   
+15   1536        749.808     0.698682  
+16   1536        766.436     0.706386  
+17   1536        786.448     0.715549  
+18   1536        816.946     0.729291  
+19   1536        873.816     0.754248  
+20   1536        879.071     0.756513  
+21   1536        896.988     0.764184  
+22   1536        1008.37     0.810241  
+23   1536        1025.32     0.817024  
+24   1536        1050.15     0.826857  
+25   1536        1133.38     0.858998  
+26   1536        1316.2      0.925691  
+27   1536        1226.17     0.893469  
+28   1536        1257.43     0.904785  
+29   1536        1375.48     0.946307  
+30   1536        1323.51     0.928258  
+31   1536        1387.07     0.950283  
+32   1536        1275.2      0.911158  
+33   1536        1513.5      0.992649  
+34   1536        1484.88     0.98322   
+35   1536        1412.51     0.95896   
+get_nullvecs: 43.1692 secs
+vcomp 0  ( 55292.4 55292.4 )  2.71063e-08 / 221170 = 1.22559e-13
+vcomp 1  ( 55357.8 55357.8 )  2.89218e-08 / 221431 = 1.30613e-13
+vcomp 0  ( 55292.4 55292.4 )  2.8147e-08 / 221170 = 1.27264e-13
+vcomp 1  ( 55357.8 55357.8 )  2.99999e-08 / 221431 = 1.35482e-13
+
+creating true coarse operator
+ shift  0 :  1  0  0  0
+ shift  1 :  0  1  0  0
+ shift  2 :  0  0  1  0
+ shift  3 :  0  0  0  1
+ shift  4 : -1  0  0  0
+ shift  5 :  0 -1  0  0
+ shift  6 :  0  0 -1  0
+ shift  7 :  0  0  0 -1
+ shift  8 :  0  0  0  0
+16: 0 5 10 15
+vcomp 0  ( 0.467637 0.467637 )  0 / 1.87055 = 0
+vcomp 1  ( 0.0444074 0.0444074 )  0 / 0.17763 = 0
+vcomp 0  ( 1 0.999999 )  1.12745e-13 / 4 = 2.81863e-14
+vcomp 1  ( 0 7.58635e-15 )  7.58635e-15 / 7.58635e-15 = 1
+vcomp 0  ( 1.23861 1.23861 )  9.56604e-14 / 4.95445 = 1.9308e-14
+vcomp 1  ( 0.108988 0.108988 )  1.38441e-14 / 0.435953 = 3.1756e-14
+vcomp 0  ( 0.361079 0.361079 )  2.41365e-15 / 1.44432 = 1.67114e-15
+vcomp 1  ( 0.0325236 0.0325236 )  2.10177e-15 / 0.130094 = 1.61558e-14
+QOP_F_mgCloneOp: 10.3696 secs
+QDP: multigrid structure setup time = 241.12 secs
+Saving in Map
+Creating Named Object Map Entry for subspace
+Chroma:   chi all norm2 = 1.00000007278354
+Using subspace with ptr: 7a672e0
+QDP: Copying fermion source from Chroma
+QDP:   Chroma initial guess norm2 = 0
+QDP:   Chroma in norm2 = 1
+QDP: Source transfer took 0.0385709 secs
+QDP: Apply the multigrid inverter!
+iters =   10  secs = 3.852458  rsq = 3.10255e-11
+level 0 count 10 tpre 0.01 tcoarse 2.89 tpost 0.76 trest 0.22 tprol 0.14
+level 1 count 38 tpre 0.00 tcoarse 0.63 tpost 1.50 trest 0.02 tprol 0.03
+QDP: Inversion took 10 iterations and 3.9241 secs
+QDP: Copying fermion solution back to Chroma
+QDP:   Chroma out norm2 = 48.8844
+QDP: Solution transfer took 0.00395394 secs
+Chroma:   psi all norm2 = 48.8844159675677
+QOPMG_LINOP_SOLVER:  Mass: -0.2815 iterations: 10 time: 245.090328 secs Rsd: 5.899977e-06 Relative Rsd: 5.89997649869768e-06
+LinOpSysSolverQOPMG::getSubspace() 
+Retreiving Subspace Pointer from NamedObject Map
+QDP: Resetting multigrid structure
+QDP:   Creating 1st multigrid level with size 8 8 8 24
+QDP:   Creating 2nd multigrid level with size 4 4 4 12
+QDP: multigrid structure setup time = 2.1448e-05 secs
+Chroma:   chi all norm2 = 1.00000007278354
+Using subspace with ptr: 7a672e0
+QDP: Copying fermion source from Chroma
+QDP:   Chroma initial guess norm2 = 0
+QDP:   Chroma in norm2 = 1
+QDP: Source transfer took 0.00746228 secs
+QDP: Apply the multigrid inverter!
+iters =   10  secs = 3.789025  rsq = 2.45338e-11
+level 0 count 10 tpre 0.01 tcoarse 2.79 tpost 0.80 trest 0.22 tprol 0.13
+level 1 count 37 tpre 0.00 tcoarse 0.58 tpost 1.48 trest 0.02 tprol 0.02
+QDP: Inversion took 10 iterations and 3.83149 secs
+QDP: Copying fermion solution back to Chroma
+QDP:   Chroma out norm2 = 35.744
+QDP: Solution transfer took 0.00400407 secs
+Chroma:   psi all norm2 = 35.7440322288576
+QOPMG_LINOP_SOLVER:  Mass: -0.2815 iterations: 10 time: 3.843587 secs Rsd: 5.222447e-06 Relative Rsd: 5.22244662627904e-06
+LinOpSysSolverQOPMG::getSubspace() 
+Retreiving Subspace Pointer from NamedObject Map
+QDP: Resetting multigrid structure
+QDP:   Creating 1st multigrid level with size 8 8 8 24
+QDP:   Creating 2nd multigrid level with size 4 4 4 12
+QDP: multigrid structure setup time = 2.3894e-05 secs
+Chroma:   chi all norm2 = 1.00000007278354
+Using subspace with ptr: 7a672e0
+QDP: Copying fermion source from Chroma
+QDP:   Chroma initial guess norm2 = 0
+QDP:   Chroma in norm2 = 1
+QDP: Source transfer took 0.00747862 secs
+QDP: Apply the multigrid inverter!
+iters =   10  secs = 3.681653  rsq = 3.58225e-11
+level 0 count 10 tpre 0.01 tcoarse 2.71 tpost 0.78 trest 0.22 tprol 0.13
+level 1 count 36 tpre 0.00 tcoarse 0.56 tpost 1.42 trest 0.02 tprol 0.02
+QDP: Inversion took 10 iterations and 3.72298 secs
+QDP: Copying fermion solution back to Chroma
+QDP:   Chroma out norm2 = 67.0516
+QDP: Solution transfer took 0.00393264 secs
+Chroma:   psi all norm2 = 67.0516019378268
+QOPMG_LINOP_SOLVER:  Mass: -0.2815 iterations: 10 time: 3.734995 secs Rsd: 6.405793e-06 Relative Rsd: 6.40579241342851e-06
+LinOpSysSolverQOPMG::getSubspace() 
+Retreiving Subspace Pointer from NamedObject Map
+QDP: Resetting multigrid structure
+QDP:   Creating 1st multigrid level with size 8 8 8 24
+QDP:   Creating 2nd multigrid level with size 4 4 4 12
+QDP: multigrid structure setup time = 2.0333e-05 secs
+Chroma:   chi all norm2 = 1.00000007278354
+Using subspace with ptr: 7a672e0
+QDP: Copying fermion source from Chroma
+QDP:   Chroma initial guess norm2 = 0
+QDP:   Chroma in norm2 = 1
+QDP: Source transfer took 0.00747859 secs
+QDP: Apply the multigrid inverter!
+iters =   10  secs = 3.825271  rsq = 3.96486e-11
+level 0 count 10 tpre 0.01 tcoarse 2.77 tpost 0.87 trest 0.22 tprol 0.13
+level 1 count 37 tpre 0.00 tcoarse 0.57 tpost 1.46 trest 0.02 tprol 0.02
+QDP: Inversion took 10 iterations and 3.8667 secs
+QDP: Copying fermion solution back to Chroma
+QDP:   Chroma out norm2 = 86.0811
+QDP: Solution transfer took 0.00394993 secs
+Chroma:   psi all norm2 = 86.0810817174545
+QOPMG_LINOP_SOLVER:  Mass: -0.2815 iterations: 10 time: 3.878711 secs Rsd: 6.805295e-06 Relative Rsd: 6.80529476785393e-06
+LinOpSysSolverQOPMG::getSubspace() 
+Retreiving Subspace Pointer from NamedObject Map
+QDP: Resetting multigrid structure
+QDP:   Creating 1st multigrid level with size 8 8 8 24
+QDP:   Creating 2nd multigrid level with size 4 4 4 12
+QDP: multigrid structure setup time = 1.9781e-05 secs
+Chroma:   chi all norm2 = 1.00000007278354
+Using subspace with ptr: 7a672e0
+QDP: Copying fermion source from Chroma
+QDP:   Chroma initial guess norm2 = 0
+QDP:   Chroma in norm2 = 1
+QDP: Source transfer took 0.00746556 secs
+QDP: Apply the multigrid inverter!
+iters =   10  secs = 3.897921  rsq = 3.18017e-11
+level 0 count 10 tpre 0.01 tcoarse 2.91 tpost 0.80 trest 0.22 tprol 0.13
+level 1 count 39 tpre 0.00 tcoarse 0.61 tpost 1.55 trest 0.02 tprol 0.03
+QDP: Inversion took 10 iterations and 3.93954 secs
+QDP: Copying fermion solution back to Chroma
+QDP:   Chroma out norm2 = 61.8192
+QDP: Solution transfer took 0.00410775 secs
+Chroma:   psi all norm2 = 61.8192094281457
+QOPMG_LINOP_SOLVER:  Mass: -0.2815 iterations: 10 time: 3.951694 secs Rsd: 6.050587e-06 Relative Rsd: 6.05058654209356e-06
+LinOpSysSolverQOPMG::getSubspace() 
+Retreiving Subspace Pointer from NamedObject Map
+QDP: Resetting multigrid structure
+QDP:   Creating 1st multigrid level with size 8 8 8 24
+QDP:   Creating 2nd multigrid level with size 4 4 4 12
+QDP: multigrid structure setup time = 2.1123e-05 secs
+Chroma:   chi all norm2 = 1.00000007278354
+Using subspace with ptr: 7a672e0
+QDP: Copying fermion source from Chroma
+QDP:   Chroma initial guess norm2 = 0
+QDP:   Chroma in norm2 = 1
+QDP: Source transfer took 0.00745123 secs
+QDP: Apply the multigrid inverter!
+iters =   10  secs = 3.689528  rsq = 2.27609e-11
+level 0 count 10 tpre 0.01 tcoarse 2.71 tpost 0.79 trest 0.22 tprol 0.13
+level 1 count 36 tpre 0.00 tcoarse 0.56 tpost 1.42 trest 0.02 tprol 0.02
+QDP: Inversion took 10 iterations and 3.7317 secs
+QDP: Copying fermion solution back to Chroma
+QDP:   Chroma out norm2 = 34.9494
+QDP: Solution transfer took 0.00401714 secs
+Chroma:   psi all norm2 = 34.9493787818246
+QOPMG_LINOP_SOLVER:  Mass: -0.2815 iterations: 10 time: 3.743759 secs Rsd: 5.049372e-06 Relative Rsd: 5.0493720645669e-06
+LinOpSysSolverQOPMG::getSubspace() 
+Retreiving Subspace Pointer from NamedObject Map
+QDP: Resetting multigrid structure
+QDP:   Creating 1st multigrid level with size 8 8 8 24
+QDP:   Creating 2nd multigrid level with size 4 4 4 12
+QDP: multigrid structure setup time = 2.1763e-05 secs
+Chroma:   chi all norm2 = 1.00000007278354
+Using subspace with ptr: 7a672e0
+QDP: Copying fermion source from Chroma
+QDP:   Chroma initial guess norm2 = 0
+QDP:   Chroma in norm2 = 1
+QDP: Source transfer took 0.00748771 secs
+QDP: Apply the multigrid inverter!
+iters =   10  secs = 4.204917  rsq = 8.06246e-11
+level 0 count 10 tpre 0.01 tcoarse 2.96 tpost 0.79 trest 0.22 tprol 0.14
+level 1 count 40 tpre 0.00 tcoarse 0.62 tpost 1.58 trest 0.02 tprol 0.03
+QDP: Inversion took 10 iterations and 4.26336 secs
+QDP: Copying fermion solution back to Chroma
+QDP:   Chroma out norm2 = 259.952
+QDP: Solution transfer took 0.0294737 secs
+Chroma:   psi all norm2 = 259.952253094045
+QOPMG_LINOP_SOLVER:  Mass: -0.2815 iterations: 10 time: 4.31033 secs Rsd: 1.003375e-05 Relative Rsd: 1.00337516401103e-05
+LinOpSysSolverQOPMG::getSubspace() 
+Retreiving Subspace Pointer from NamedObject Map
+QDP: Resetting multigrid structure
+QDP:   Creating 1st multigrid level with size 8 8 8 24
+QDP:   Creating 2nd multigrid level with size 4 4 4 12
+QDP: multigrid structure setup time = 2.3225e-05 secs
+Chroma:   chi all norm2 = 1.00000007278354
+Using subspace with ptr: 7a672e0
+QDP: Copying fermion source from Chroma
+QDP:   Chroma initial guess norm2 = 0
+QDP:   Chroma in norm2 = 1
+QDP: Source transfer took 0.00749651 secs
+QDP: Apply the multigrid inverter!
+iters =   10  secs = 3.924203  rsq = 8.92071e-11
+level 0 count 10 tpre 0.01 tcoarse 2.96 tpost 0.77 trest 0.22 tprol 0.13
+level 1 count 40 tpre 0.00 tcoarse 0.62 tpost 1.58 trest 0.02 tprol 0.03
+QDP: Inversion took 10 iterations and 3.96648 secs
+QDP: Copying fermion solution back to Chroma
+QDP:   Chroma out norm2 = 275.185
+QDP: Solution transfer took 0.00394419 secs
+Chroma:   psi all norm2 = 275.184719239602
+QOPMG_LINOP_SOLVER:  Mass: -0.2815 iterations: 10 time: 3.978558 secs Rsd: 1.05196e-05 Relative Rsd: 1.05195973256537e-05
+LinOpSysSolverQOPMG::getSubspace() 
+Retreiving Subspace Pointer from NamedObject Map
+QDP: Resetting multigrid structure
+QDP:   Creating 1st multigrid level with size 8 8 8 24
+QDP:   Creating 2nd multigrid level with size 4 4 4 12
+QDP: multigrid structure setup time = 2.0757e-05 secs
+Chroma:   chi all norm2 = 1.00000007278354
+Using subspace with ptr: 7a672e0
+QDP: Copying fermion source from Chroma
+QDP:   Chroma initial guess norm2 = 0
+QDP:   Chroma in norm2 = 1
+QDP: Source transfer took 0.00750906 secs
+QDP: Apply the multigrid inverter!
+iters =   10  secs = 3.630141  rsq = 2.2165e-11
+level 0 count 10 tpre 0.01 tcoarse 2.67 tpost 0.77 trest 0.22 tprol 0.13
+level 1 count 34 tpre 0.00 tcoarse 0.54 tpost 1.40 trest 0.02 tprol 0.02
+QDP: Inversion took 10 iterations and 3.67102 secs
+QDP: Copying fermion solution back to Chroma
+QDP:   Chroma out norm2 = 26.379
+QDP: Solution transfer took 0.00394565 secs
+Chroma:   psi all norm2 = 26.3789506526066
+QOPMG_LINOP_SOLVER:  Mass: -0.2815 iterations: 10 time: 3.683062 secs Rsd: 4.921511e-06 Relative Rsd: 4.92151075657125e-06
+LinOpSysSolverQOPMG::getSubspace() 
+Retreiving Subspace Pointer from NamedObject Map
+QDP: Resetting multigrid structure
+QDP:   Creating 1st multigrid level with size 8 8 8 24
+QDP:   Creating 2nd multigrid level with size 4 4 4 12
+QDP: multigrid structure setup time = 2.156e-05 secs
+Chroma:   chi all norm2 = 1.00000007278354
+Using subspace with ptr: 7a672e0
+QDP: Copying fermion source from Chroma
+QDP:   Chroma initial guess norm2 = 0
+QDP:   Chroma in norm2 = 1
+QDP: Source transfer took 0.00746824 secs
+QDP: Apply the multigrid inverter!
+iters =   10  secs = 3.861821  rsq = 2.89676e-11
+level 0 count 10 tpre 0.01 tcoarse 2.91 tpost 0.76 trest 0.22 tprol 0.13
+level 1 count 39 tpre 0.00 tcoarse 0.61 tpost 1.55 trest 0.02 tprol 0.03
+QDP: Inversion took 10 iterations and 3.90266 secs
+QDP: Copying fermion solution back to Chroma
+QDP:   Chroma out norm2 = 50.1125
+QDP: Solution transfer took 0.00393751 secs
+Chroma:   psi all norm2 = 50.1124984118327
+QOPMG_LINOP_SOLVER:  Mass: -0.2815 iterations: 10 time: 3.91482 secs Rsd: 5.731485e-06 Relative Rsd: 5.73148488062099e-06
+LinOpSysSolverQOPMG::getSubspace() 
+Retreiving Subspace Pointer from NamedObject Map
+QDP: Resetting multigrid structure
+QDP:   Creating 1st multigrid level with size 8 8 8 24
+QDP:   Creating 2nd multigrid level with size 4 4 4 12
+QDP: multigrid structure setup time = 2.163e-05 secs
+Chroma:   chi all norm2 = 1.00000007278354
+Using subspace with ptr: 7a672e0
+QDP: Copying fermion source from Chroma
+QDP:   Chroma initial guess norm2 = 0
+QDP:   Chroma in norm2 = 1
+QDP: Source transfer took 0.00750157 secs
+QDP: Apply the multigrid inverter!
+iters =   10  secs = 4.151473  rsq = 5.78543e-11
+level 0 count 10 tpre 0.01 tcoarse 3.15 tpost 0.80 trest 0.22 tprol 0.13
+level 1 count 38 tpre 0.00 tcoarse 0.60 tpost 1.79 trest 0.02 tprol 0.03
+QDP: Inversion took 10 iterations and 4.19241 secs
+QDP: Copying fermion solution back to Chroma
+QDP:   Chroma out norm2 = 154.174
+QDP: Solution transfer took 0.00399555 secs
+Chroma:   psi all norm2 = 154.17415295784
+QOPMG_LINOP_SOLVER:  Mass: -0.2815 iterations: 10 time: 4.204486 secs Rsd: 8.360867e-06 Relative Rsd: 8.3608662548206e-06
+LinOpSysSolverQOPMG::getSubspace() 
+Retreiving Subspace Pointer from NamedObject Map
+QDP: Resetting multigrid structure
+QDP:   Creating 1st multigrid level with size 8 8 8 24
+QDP:   Creating 2nd multigrid level with size 4 4 4 12
+QDP: multigrid structure setup time = 2.1068e-05 secs
+Chroma:   chi all norm2 = 1.00000007278354
+Using subspace with ptr: 7a672e0
+QDP: Copying fermion source from Chroma
+QDP:   Chroma initial guess norm2 = 0
+QDP:   Chroma in norm2 = 1
+QDP: Source transfer took 0.00751058 secs
+QDP: Apply the multigrid inverter!
+iters =   10  secs = 3.765603  rsq = 2.96803e-11
+level 0 count 10 tpre 0.01 tcoarse 2.82 tpost 0.76 trest 0.22 tprol 0.13
+level 1 count 38 tpre 0.00 tcoarse 0.59 tpost 1.50 trest 0.02 tprol 0.03
+QDP: Inversion took 10 iterations and 3.80645 secs
+QDP: Copying fermion solution back to Chroma
+QDP:   Chroma out norm2 = 58.7569
+QDP: Solution transfer took 0.00391833 secs
+Chroma:   psi all norm2 = 58.7569235970417
+QOPMG_LINOP_SOLVER:  Mass: -0.2815 iterations: 10 time: 3.818451 secs Rsd: 5.856308e-06 Relative Rsd: 5.85630756692859e-06
+Exiting quarkProp4
+QDP: Finalizing
+Propagator computed: time= 289.557226 secs
+Start writing propagator info
+Propagator successfully updated
+PROPAGATOR: total time = 289.873943 secs
+PROPAGATOR: ran successfully
+QIO_WRITE_NAMED_OBJECT: object writer
+Attempt to write object name = prop_P0_t0
+Attempting to write with Parallel IO
+Object successfully written: time= 0.430333 secs
+QIO_WRITE_NAMED_OBJECT: ran successfully
+ERASE_NAMED_OBJECT: object erase
+Attempt to erase object name = prop_P0_t0
+Object erased
+ERASE_NAMED_OBJECT: ran successfully
+PROPAGATOR: propagator calculation
+Snarf the source from a named buffer
+Source successfully read and parsed
+FermAct = UNPRECONDITIONED_CLOVER
+Try the various factories
+u0 is 1
+Suitable factory found: compute the quark prop
+Calling quarkProp
+In quarkProp()
+Creating qprop took 0.271405sec 
+Entering quarkProp4
+InvCG2: starting
+Nonconvergence Warning
+too many CG iterations: count =1000 rsd^2= 8.10995922368279e-06
+QDP:FlopCount:invcg2 Performance/CPU: t=24.902907(s) Flops=63513745920 => 2550.45509024308 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  163228.094871792 Mflops = 163.228094871792 Gflops = 0.163228094871792 Tflops
+CG_SOLVER: 1000 iterations. Rsd = 0.01764702 Relative Rsd = 0.0176470236018637
+CG_SOLVER_TIME: 24.915236 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=25.223213(s) Flops=63513745920 => 2518.06722323599 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  161156.85705944 Mflops = 161.15685705944 Gflops = 0.16115685705944 Tflops
+Nonconvergence Warning
+too many CG iterations: count =1000 rsd^2= 3.75879516052896e-06
+CG_SOLVER: 1000 iterations. Rsd = 0.01279689 Relative Rsd = 0.0127968867308991
+CG_SOLVER_TIME: 25.234724 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=24.698822(s) Flops=63513745920 => 2571.52935957836 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  164576.832041009 Mflops = 164.576832041009 Gflops = 0.164576832041009 Tflops
+Nonconvergence Warning
+too many CG iterations: count =1000 rsd^2= 1.01894333869261e-05
+CG_SOLVER: 1000 iterations. Rsd = 0.02098765 Relative Rsd = 0.020987653341051
+CG_SOLVER_TIME: 24.710605 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=25.399345(s) Flops=63513745920 => 2500.60566207514 Mflops/cpu.
+Nonconvergence Warning
+too many CG iterations: count =1000 rsd^2= 8.73616559433254e-06
+QDP:FlopCount:invcg2 Total performance:  160039.205116132 Mflops = 160.039205116132 Gflops = 0.160039205116132 Tflops
+CG_SOLVER: 1000 iterations. Rsd = 0.02213963 Relative Rsd = 0.0221396304060574
+CG_SOLVER_TIME: 25.411313 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=25.149206(s) Flops=63513745920 => 2525.47718285818 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  161630.258531294 Mflops = 161.630258531294 Gflops = 0.161630258531294 Tflops
+Nonconvergence Warning
+too many CG iterations: count =1000 rsd^2= 1.2836307313276e-05
+CG_SOLVER: 1000 iterations. Rsd = 0.0227578 Relative Rsd = 0.0227578013303975
+CG_SOLVER_TIME: 25.160837 sec
+InvCG2: starting
+Nonconvergence Warning
+too many CG iterations: count =1000 rsd^2= 7.29142156958138e-06
+QDP:FlopCount:invcg2 Performance/CPU: t=24.929049(s) Flops=63513745920 => 2547.78053988341 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  163061.276481901 Mflops = 163.061276481901 Gflops = 0.163061276481901 Tflops
+CG_SOLVER: 1000 iterations. Rsd = 0.0178708 Relative Rsd = 0.0178708017819486
+CG_SOLVER_TIME: 24.940443 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=25.33592(s) Flops=63513745920 => 2506.8655853034 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  160439.00900574 Mflops = 160.43900900574 Gflops = 0.16043900900574 Tflops
+Nonconvergence Warning
+too many CG iterations: count =1000 rsd^2= 1.56572723526246e-05
+CG_SOLVER: 1000 iterations. Rsd = 0.02757784 Relative Rsd = 0.0275778406508135
+CG_SOLVER_TIME: 25.347527 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=24.958489(s) Flops=63513745920 => 2544.77528347169 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  162866.368779102 Mflops = 162.866368779102 Gflops = 0.162866368779102 Tflops
+Nonconvergence Warning
+too many CG iterations: count =1000 rsd^2= 2.9107615065919e-05
+CG_SOLVER: 1000 iterations. Rsd = 0.03848197 Relative Rsd = 0.0384819642606222
+CG_SOLVER_TIME: 24.970057 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=25.207928(s) Flops=63513745920 => 2519.59407056383 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  161253.320455935 Mflops = 161.253320455935 Gflops = 0.161253320455935 Tflops
+Nonconvergence Warning
+too many CG iterations: count =1000 rsd^2= 4.66808915780867e-06
+CG_SOLVER: 1000 iterations. Rsd = 0.01411475 Relative Rsd = 0.0141147528295041
+CG_SOLVER_TIME: 25.219658 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=24.8873(s) Flops=63513745920 => 2552.05449847914 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  163330.866080178 Mflops = 163.330866080178 Gflops = 0.163330866080178 Tflops
+Nonconvergence Warning
+too many CG iterations: count =1000 rsd^2= 4.62340908342544e-06
+CG_SOLVER: 1000 iterations. Rsd = 0.01491361 Relative Rsd = 0.0149136142965826
+CG_SOLVER_TIME: 24.898961 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=24.974206(s) Flops=63513745920 => 2543.17378178109 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  162762.882223157 Mflops = 162.762882223157 Gflops = 0.162762882223157 Tflops
+Nonconvergence Warning
+too many CG iterations: count =1000 rsd^2= 1.9230322463582e-05
+CG_SOLVER: 1000 iterations. Rsd = 0.02854954 Relative Rsd = 0.028549537886322
+CG_SOLVER_TIME: 24.98584 sec
+InvCG2: starting
+Nonconvergence Warning
+too many CG iterations: count =1000 rsd^2= 1.02928656149725e-05
+QDP:FlopCount:invcg2 Performance/CPU: t=25.323079(s) Flops=63513745920 => 2508.13678384054 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  160521.746907186 Mflops = 160.521746907186 Gflops = 0.160521746907186 Tflops
+CG_SOLVER: 1000 iterations. Rsd = 0.01963185 Relative Rsd = 0.0196318507500722
+CG_SOLVER_TIME: 25.334787 sec
+Exiting quarkProp4
+Propagator computed: time= 301.943561 secs
+Start writing propagator info
+Propagator successfully updated
+PROPAGATOR: total time = 302.248031 secs
+PROPAGATOR: ran successfully
+QIO_WRITE_NAMED_OBJECT: object writer
+Attempt to write object name = prop_P0_t0
+Attempting to write with Parallel IO
+Object successfully written: time= 0.451753 secs
+QIO_WRITE_NAMED_OBJECT: ran successfully
+ERASE_NAMED_OBJECT: object erase
+Attempt to erase object name = prop_P0_t0
+Object erased
+ERASE_NAMED_OBJECT: ran successfully
+PROPAGATOR: propagator calculation
+Snarf the source from a named buffer
+Source successfully read and parsed
+FermAct = CLOVER
+Try the various factories
+u0 is 1
+Suitable factory found: compute the quark prop
+Calling quarkProp
+In quarkProp()
+  ... constructing linop  ...0.116457 sec
+  ... constructing invLinOp  ...0.140098 sec
+  ... constructing PrecFermActQprop  ...1e-06 sec
+Creating qprop took 0.256722sec 
+Entering quarkProp4
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=20.398095(s) Flops=55970963712 => 2743.93092649093 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  175695.60559187 Mflops = 175.69560559187 Gflops = 0.17569560559187 Tflops
+CG_SOLVER: 919 iterations. Rsd = 4.898453e-06 Relative Rsd = 3.92340413901344e-06
+CG_SOLVER_TIME: 20.457582 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=20.038397(s) Flops=55362569472 => 2762.82426543401 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  176783.916287876 Mflops = 176.783916287876 Gflops = 0.176783916287876 Tflops
+CG_SOLVER: 909 iterations. Rsd = 4.425749e-06 Relative Rsd = 3.54519153158774e-06
+CG_SOLVER_TIME: 20.105866 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=20.2901(s) Flops=56761876224 => 2797.51584388446 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  179043.858581603 Mflops = 179.043858581603 Gflops = 0.179043858581603 Tflops
+CG_SOLVER: 932 iterations. Rsd = 5.028402e-06 Relative Rsd = 4.02712884688998e-06
+CG_SOLVER_TIME: 20.321087 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=20.458414(s) Flops=56336000256 => 2753.68365582982 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  176245.259026799 Mflops = 176.245259026799 Gflops = 0.176245259026799 Tflops
+CG_SOLVER: 925 iterations. Rsd = 5.175907e-06 Relative Rsd = 4.1459930521212e-06
+CG_SOLVER_TIME: 20.488601 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=20.65598(s) Flops=56031803136 => 2712.6189672918 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  173608.326477977 Mflops = 173.608326477977 Gflops = 0.173608326477977 Tflops
+CG_SOLVER: 920 iterations. Rsd = 5.059711e-06 Relative Rsd = 4.05054780539907e-06
+CG_SOLVER_TIME: 20.686673 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=20.152385(s) Flops=56031803136 => 2780.40555179945 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  177948.890119035 Mflops = 177.948890119035 Gflops = 0.177948890119035 Tflops
+CG_SOLVER: 920 iterations. Rsd = 5.045214e-06 Relative Rsd = 4.04153186829481e-06
+CG_SOLVER_TIME: 20.18316 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=20.534538(s) Flops=57005233920 => 2776.06605612456 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  177670.429333427 Mflops = 177.670429333427 Gflops = 0.177670429333427 Tflops
+CG_SOLVER: 936 iterations. Rsd = 5.597841e-06 Relative Rsd = 4.48345529446094e-06
+CG_SOLVER_TIME: 20.565152 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=21.013066(s) Flops=56944394496 => 2709.95172698739 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  173434.969760936 Mflops = 173.434969760936 Gflops = 0.173434969760936 Tflops
+CG_SOLVER: 935 iterations. Rsd = 5.538546e-06 Relative Rsd = 4.43438759100188e-06
+CG_SOLVER_TIME: 21.044222 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=20.533536(s) Flops=55605927168 => 2708.05413972537 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  173316.328664189 Mflops = 173.316328664189 Gflops = 0.173316328664189 Tflops
+CG_SOLVER: 913 iterations. Rsd = 4.645768e-06 Relative Rsd = 3.72048048876566e-06
+CG_SOLVER_TIME: 20.564391 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=19.91293(s) Flops=55605927168 => 2792.45330385835 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  178716.918900904 Mflops = 178.716918900904 Gflops = 0.178716918900904 Tflops
+CG_SOLVER: 913 iterations. Rsd = 4.853376e-06 Relative Rsd = 3.88393886524084e-06
+CG_SOLVER_TIME: 19.943835 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=20.857849(s) Flops=57005233920 => 2733.03512361222 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  174916.211346213 Mflops = 174.916211346213 Gflops = 0.174916211346213 Tflops
+CG_SOLVER: 936 iterations. Rsd = 5.548341e-06 Relative Rsd = 4.44133813447213e-06
+CG_SOLVER_TIME: 20.888479 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=21.134066(s) Flops=56396839680 => 2668.52765956158 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  170787.979409392 Mflops = 170.787979409392 Gflops = 0.170787979409392 Tflops
+CG_SOLVER: 926 iterations. Rsd = 5.059163e-06 Relative Rsd = 4.0505421823879e-06
+CG_SOLVER_TIME: 21.164673 sec
+Exiting quarkProp4
+CLOV_LINOP: Time spent in clov deriv (total) = 0
+CLOV_LINOP: Time spent in clov apply/invapply (total) = 44.8784970000002
+CLOV_LINOP: Time spent in clov deriv (total) = 0
+CLOV_LINOP: Time spent in clov apply/invapply (total) = 0.056913
+Propagator computed: time= 247.36375 secs
+Start writing propagator info
+Propagator successfully updated
+PROPAGATOR: total time = 247.717044 secs
+PROPAGATOR: ran successfully
+QIO_WRITE_NAMED_OBJECT: object writer
+Attempt to write object name = prop_P0_t0
+Attempting to write with Parallel IO
+Object successfully written: time= 0.409113 secs
+QIO_WRITE_NAMED_OBJECT: ran successfully
+ERASE_NAMED_OBJECT: object erase
+Attempt to erase object name = prop_P0_t0
+Object erased
+ERASE_NAMED_OBJECT: ran successfully
+PROPAGATOR: propagator calculation
+Snarf the source from a named buffer
+Source successfully read and parsed
+FermAct = CLOVER
+Try the various factories
+u0 is 1
+Suitable factory found: compute the quark prop
+Calling quarkProp
+In quarkProp()
+  ... constructing linop  ...0.115445 sec
+  ... constructing invLinOp  ...0.114541 sec
+  ... constructing PrecFermActQprop  ...1e-06 sec
+Creating qprop took 0.230142sec 
+Entering quarkProp4
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=1.36691(s) Flops=3892416768 => 2847.60281803484 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  182269.178259054 Mflops = 182.269178259054 Gflops = 0.182269178259054 Tflops
+CG_SOLVER: 63 iterations. Rsd = 4.710106e-07 Relative Rsd = 4.06386048397001e-07
+CG_SOLVER_TIME: 1.397149 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=1.372217(s) Flops=3892416768 => 2836.58981633371 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  181567.834506189 Mflops = 181.567834506189 Gflops = 0.181567834506189 Tflops
+CG_SOLVER: 63 iterations. Rsd = 4.707428e-07 Relative Rsd = 4.06188664058453e-07
+CG_SOLVER_TIME: 1.402604 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=1.366937(s) Flops=3892416768 => 2847.54657164156 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  182241.461582137 Mflops = 182.241461582137 Gflops = 0.182241461582137 Tflops
+CG_SOLVER: 63 iterations. Rsd = 4.769547e-07 Relative Rsd = 4.11489615846682e-07
+CG_SOLVER_TIME: 1.397424 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=1.378891(s) Flops=3892416768 => 2822.8603769261 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  180679.235122022 Mflops = 180.679235122022 Gflops = 0.180679235122022 Tflops
+CG_SOLVER: 63 iterations. Rsd = 4.794324e-07 Relative Rsd = 4.13683687116906e-07
+CG_SOLVER_TIME: 1.409298 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=1.372696(s) Flops=3892416768 => 2835.59999300646 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  181501.485603807 Mflops = 181.501485603807 Gflops = 0.181501485603807 Tflops
+CG_SOLVER: 63 iterations. Rsd = 4.725838e-07 Relative Rsd = 4.07581291125328e-07
+CG_SOLVER_TIME: 1.403135 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=1.366864(s) Flops=3892416768 => 2847.69865034122 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  182303.757613485 Mflops = 182.303757613485 Gflops = 0.182303757613485 Tflops
+CG_SOLVER: 63 iterations. Rsd = 4.719429e-07 Relative Rsd = 4.07223443057435e-07
+CG_SOLVER_TIME: 1.397026 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=1.365741(s) Flops=3892416768 => 2850.04021113813 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  182411.875902555 Mflops = 182.411875902555 Gflops = 0.182411875902555 Tflops
+CG_SOLVER: 63 iterations. Rsd = 4.754848e-07 Relative Rsd = 4.10228984430185e-07
+CG_SOLVER_TIME: 1.396126 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=1.396001(s) Flops=3892416768 => 2788.26216313599 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  178458.518974546 Mflops = 178.458518974546 Gflops = 0.178458518974546 Tflops
+CG_SOLVER: 63 iterations. Rsd = 4.775541e-07 Relative Rsd = 4.11904719271466e-07
+CG_SOLVER_TIME: 1.431106 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=1.452066(s) Flops=3892416768 => 2680.60595592762 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  171814.39386993 Mflops = 171.81439386993 Gflops = 0.17181439386993 Tflops
+CG_SOLVER: 63 iterations. Rsd = 4.7187e-07 Relative Rsd = 4.07052177889664e-07
+CG_SOLVER_TIME: 1.481645 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=1.375856(s) Flops=3892416768 => 2829.08732309195 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  181072.984212777 Mflops = 181.072984212777 Gflops = 0.181072984212777 Tflops
+CG_SOLVER: 63 iterations. Rsd = 4.731054e-07 Relative Rsd = 4.07898071037837e-07
+CG_SOLVER_TIME: 1.406254 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=1.373306(s) Flops=3892416768 => 2834.34046599957 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  181440.575736443 Mflops = 181.440575736443 Gflops = 0.181440575736443 Tflops
+CG_SOLVER: 63 iterations. Rsd = 4.715413e-07 Relative Rsd = 4.06634722002548e-07
+CG_SOLVER_TIME: 1.406908 sec
+InvCG2: starting
+QDP:FlopCount:invcg2 Performance/CPU: t=1.370803(s) Flops=3892416768 => 2839.5157932978 Mflops/cpu.
+QDP:FlopCount:invcg2 Total performance:  181554.321242031 Mflops = 181.554321242031 Gflops = 0.181554321242031 Tflops
+CG_SOLVER: 63 iterations. Rsd = 4.710619e-07 Relative Rsd = 4.06278518465024e-07
+CG_SOLVER_TIME: 1.403851 sec
+Exiting quarkProp4
+CLOV_LINOP: Time spent in clov deriv (total) = 0
+CLOV_LINOP: Time spent in clov apply/invapply (total) = 3.100563
+CLOV_LINOP: Time spent in clov deriv (total) = 0
+CLOV_LINOP: Time spent in clov apply/invapply (total) = 0.048119
+Propagator computed: time= 17.828514 secs
+Start writing propagator info
+Propagator successfully updated
+PROPAGATOR: total time = 18.149753 secs
+PROPAGATOR: ran successfully
+QIO_WRITE_NAMED_OBJECT: object writer
+Attempt to write object name = prop_P0_t0
+Attempting to write with Parallel IO
+Object successfully written: time= 0.507853 secs
+QIO_WRITE_NAMED_OBJECT: ran successfully
+ERASE_NAMED_OBJECT: object erase
+Attempt to erase object name = prop_P0_t0
+Object erased
+ERASE_NAMED_OBJECT: ran successfully
+CHROMA measurements: time= 860.628765 secs
+CHROMA: total time = 860.918745 secs
+CHROMA: ran successfully

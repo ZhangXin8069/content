@@ -1,0 +1,1 @@
+rm -rf chroma hmc chroma.o grid_source.o inline_qpropadd_w.o inline_seqsource_fast_w.o simple_baryon_seqsrc_w.o  *~

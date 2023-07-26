@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<chroma>
+<Param> 
+  <InlineMeasurements>
+
+    <elem>
+        <annotation>
+            Read the L prop
+        </annotation>
+        <Name>QIO_READ_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+            <object_id>L_quark_propagator</object_id>
+            <object_type>LatticePropagator</object_type>
+        </NamedObject>
+        <File>
+            <file_name>/dssg/home/acct-phyww/phyww/qazhang/training_camp/clqcd/C24P31//Propagators/prop_35200_CoulombWall_t0-n1_P505050_m-0.2770_single</file_name>
+            <parallel_io>true</parallel_io>
+        </File>
+    </elem>
+
+    <elem>
+        <annotation>
+            Read the S prop
+        </annotation>
+        <Name>QIO_READ_NAMED_OBJECT</Name>
+        <Frequency>1</Frequency>
+        <NamedObject>
+            <object_id>S_quark_propagator</object_id>
+            <object_type>LatticePropagator</object_type>
+        </NamedObject>
+        <File>
+            <file_name>/dssg/home/acct-phyww/phyww/qazhang/training_camp/clqcd/C24P31//Propagators/prop_35200_CoulombWall_t0-n1_P505050_m-0.2400_single</file_name>
+            <parallel_io>true</parallel_io>
+        </File>
+    </elem>
+
+
+    <elem>
+      <annotation>
+         Compute the measurements you build
+      </annotation>
+      <Name>My_Measurements</Name>
+      <Param>
+        <cfg_serial>35200</cfg_serial>
+        <hadrons>
+          <elem>PION</elem>
+          <elem>KAON</elem>
+          <elem>PROTON</elem>
+        </hadrons>
+        <l_prop>L_quark_propagator</l_prop>
+        <s_prop>S_quark_propagator</s_prop>
+        <file_name>/dssg/home/acct-stu/stu1940/zhangxin/day2/2pt/Data/2pt_35200.dat.iog</file_name>
+       </Param>
+    </elem>
+
+  </InlineMeasurements>
+    <nrow>24 24 24 72</nrow>
+</Param>
+
+  <RNG>
+    <Seed>
+      <elem>11</elem>
+      <elem>11</elem>
+      <elem>11</elem>
+      <elem>0</elem>
+    </Seed>
+  </RNG>
+
+  <Cfg>
+    <cfg_type>SCIDAC</cfg_type>
+    <cfg_file>/dssg/home/acct-phyww/phyww/qazhang/training_camp/clqcd/C24P31//Configurations/CoulombGaugeFixed/beta6.20_mu-0.2770_ms-0.2400_L24x72_cfg_35200_hyp0_gfixed3.scidac</cfg_file>
+    <parallel_io>true</parallel_io>
+  </Cfg>
+
+</chroma>
+
+
+
